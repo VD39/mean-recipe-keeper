@@ -1,0 +1,22 @@
+<div class="html ui top attached segment item" [formGroup]="item">
+  <div class="ui attached label">
+    {{value}} {{index + 1}}
+    <i data-content="Copy code" (click)="delete.emit($event, index)" class="remove icon"></i>
+  </div>
+
+  <div class="fields" *ngIf="value === 'Ingredients'">
+    <div class="four wide field">
+      <label for="exampleSelect1">Quantity</label>
+      <input type="text" name="quantity" placeholder="Quantity" formControlName="quantity">
+    </div>
+    <div class="twelve wide field">
+      <label for="exampleSelect1">Ingredient</label>
+      <input type="text" name="ingredient" placeholder="Ingredient" formControlName="ingredient">
+    </div>
+  </div>
+
+
+  <div class="field" *ngIf="value === 'Directions'">
+    <textarea class="form-control" id="message" rows="5" [formControlName]="index"></textarea>
+  </div>
+</div>

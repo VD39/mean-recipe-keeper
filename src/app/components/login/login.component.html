@@ -1,0 +1,21 @@
+<form class="ui form error" [formGroup]="loginForm" (submit)="login()" novalidate>
+  <div class="required field">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Enter Email" formControlName="email">
+    <div class="ui error message" *ngIf="loginForm.controls.email.errors?.required && loginForm.controls.email.dirty">
+      <p>This field is required.</p>
+    </div>
+  </div>
+  <div class="required field">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter Password" formControlName="password">
+    <div class="ui error message" *ngIf="loginForm.controls.password.errors?.required && loginForm.controls.password.dirty">
+      <p>This field is required.</p>
+    </div>
+  </div>
+  <button class="ui button" type="submit" [disabled]="loginForm.invalid || processing">Submit</button>
+  <div class="ui error message" *ngIf="error">
+    <div class="header">Error</div>
+    <p>{{errorMessage}}</p>
+  </div>
+</form>

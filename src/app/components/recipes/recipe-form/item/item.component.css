@@ -1,0 +1,12 @@
+.html.segment {
+  padding: 3.5em 1em 1em;
+}
+
+.html.segment.item {
+  margin-bottom: 25px;
+}
+
+.icon {
+  float: right;
+  cursor: pointer;
+}

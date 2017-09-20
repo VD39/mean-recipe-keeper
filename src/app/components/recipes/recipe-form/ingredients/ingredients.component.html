@@ -1,0 +1,29 @@
+<div [formGroup]="parentFormGroup">
+
+  <div class="ui top attached segment">
+
+    <div formArrayName="ingredients">
+      <div class="item" *ngFor="let ingredient of formArrayxx.controls; let i = index" [formGroupName]="i">
+
+        <div class="html ui top attached segment">
+          <div class="ui attached label">
+            Ingredient {{i+1}}
+            <i data-content="Copy code" (click)="delete($event, i)" class="remove icon"></i>
+          </div>
+
+          <div class="field">
+            <label for="exampleSelect1">For</label>
+            <input class="form-control" type="text" formControlName="for" />
+          </div>
+
+          <div class="field">
+            <label for="exampleSelect1">Ingredients</label>
+            <app-item-array [parentsFormGroup]="parentFormGroup" [itemArray]="ingredient.controls.ingredients" value="Ingredients"></app-item-array>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="ui button" type="submit" (click)="add($event)">Add Ingredients</button>
+  </div>
+</div>

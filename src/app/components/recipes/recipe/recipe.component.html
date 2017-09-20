@@ -1,0 +1,62 @@
+<div *ngIf="noRecipe">
+  NOT FOUND
+</div>
+
+<div class="recipe" *ngIf="recipe && !noRecipe">
+  <h1 class="ui center aligned icon header">{{recipe.name}}</h1>
+  <div class="ui segment">
+    <img class="ui centered medium image" src="./assets/images/{{recipe.image}}" alt="{{recipe.name}}" name="{{recipe.name}}">
+  </div>
+  <div class="intro">
+    <p class="italic">
+      {{recipe.intro}}
+    </p>
+  </div>
+  <h4 class="ui horizontal divider header">
+    <i class="food icon"></i> {{recipe.course_type}}
+  </h4>
+  <div class="ui horizontal segments">
+    <div class="ui segment">
+      <p>Serves:</p>
+      <p><i class="user icon"></i> {{recipe.serves}}</p>
+    </div>
+    <div class="ui segment">
+      <p>Prep Time:</p>
+      <p><i class="hourglass half icon"></i> {{recipe.prep_time}}</p>
+    </div>
+    <div class="ui segment">
+      <p>Cook Time:</p>
+      <p><i class="hourglass half icon"></i> {{recipe.cook_time}}</p>
+    </div>
+    <div class="ui segment">
+      <p>Total Time:</p>
+      <p><i class="hourglass full icon"></i> {{recipe.total_time}}</p>
+    </div>
+  </div>
+  <h4 class="ui horizontal divider header">
+    <i class="shopping basket icon"></i> Ingredients
+  </h4>
+  <div class="ui raised segments" *ngIf="recipe.type === 0">
+    <div class="ui segment" *ngFor="let ingredient of recipe.ingredients; let i = index">
+      <p>{{ingredient}}</p>
+    </div>
+  </div>
+  <div *ngIf="recipe.type === 1">
+    <div class="ui segments" *ngFor="let ingredient of recipe.ingredients; let i = index">
+      <div class="ui segment">
+        <p>{{ingredient.for}}</p>
+      </div>
+      <div class="ui secondary segment" *ngFor="let iingredient of ingredient.ingredients; let i = index">
+        <p>{{iingredient}}</p>
+      </div>
+    </div>
+  </div>
+  <h4 class="ui horizontal divider header">
+    <i class="book icon"></i> Directions
+  </h4>
+  <div class="ui raised segments">
+    <div class="ui segment" *ngFor="let step of recipe.directions; let i = index">
+      <p>Step {{i + 1}} - {{step}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="field">
+  <div class="html ui top attached segment">
+    <div [formGroup]="parentsFormGroup">
+      <div class="item" formArrayName="{{value | lowercase}}">
+
+        <div *ngIf="value === 'Directions'">
+          <app-item *ngFor="let item of itemArray.controls; let i = index" [item]="itemArray" [value]="value" [index]="i" (delete)="delete($event, i)"></app-item>
+
+        </div>
+
+        <div *ngIf="value === 'Ingredients'">
+          <app-item *ngFor="let item of itemArray.controls; let i = index" [item]="item" [value]="value" [index]="i" (delete)="delete($event, i)"></app-item>
+        </div>
+      </div>
+      <button class="ui button" type="submit" (click)="add($event)">Add {{value}}</button>
+    </div>
+  </div>
+</div>
