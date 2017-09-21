@@ -2,7 +2,6 @@
 
   <div class="fields">
 
-
     <div class="twelve wide field">
 
       <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
@@ -19,49 +18,73 @@
         <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
 
         <div class="field required">
+
           <label for="exampleSelect1">Course Type</label>
 
           <select class="ui fluid" formControlName="course_type">
-            <option *ngFor="let courseType of courseTypes" value="courseType.type">{{courseType.type}}</option>
-          </select>
+
+              <option *ngFor="let courseType of courseTypes" value="{{courseType.type}}">{{courseType.type}}</option>
+
+            </select>
 
           <div class="field">
+
             <div class="ui error message" *ngIf="isRequired && parentFormGroup.controls.course_type.errors?.required && parentFormGroup.controls.course_type.dirty">
+
               <p>This field is required.</p>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
 
     </div>
 
-
-
-
     <div class="four wide field">
 
       <div class="field ui card">
+
         <div class="image">
+
           <img *ngIf="recipeForm.controls.image.value" src="{{recipeForm.controls.image.value}}" />
+
           <img *ngIf="!recipeForm.controls.image.value" src="{{defaultImage}}" />
+
         </div>
+
         <div class="content">
+
           <div class="content">
+
             <div class="meta">
+
               <div class="field">
+
                 <label for="file" class="ui icon button">
-                                <i class="file icon"></i>
-                                Open Image</label>
+
+                    <i class="file icon"></i>Open Image
+
+                  </label>
+
                 <input type="file" id="file" style="display:none" (change)="getImageData($event)">
+
               </div>
+
             </div>
 
             <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
 
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <div class="field">
@@ -69,40 +92,55 @@
     <div class="field">
 
       <div class="field required">
+
         <label>Ingredients</label>
+
       </div>
 
       <div class="field required">
+
         <label for="type">Type</label>
+
         <select class="form-control" name="type" id="type" formControlName="type">
-          <option  value="99">Select Type</option>
-          <option  value="0">Single</option>
-          <option  value="1">Multiple</option>
-        </select>
+
+            <option  value="99">Select Type</option>
+
+            <option  value="0">Single</option>
+
+            <option  value="1">Multiple</option>
+
+          </select>
+
       </div>
 
       <div class="field">
+
         <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentsFormGroup]="recipeForm" [itemArray]="ingredients" value="Ingredients"></app-item-array>
 
         <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArrayxx]="ingredients"></app-ingredients>
+
       </div>
 
     </div>
 
     <div class="field required">
+
       <label for="exampleSelect1">Directions</label>
+
       <app-item-array [parentsFormGroup]="recipeForm" [itemArray]="directions" value="Directions"></app-item-array>
+
     </div>
+
   </div>
-
-
 
   <button class="ui submit button" type="submit" [disabled]="recipeForm.invalid">Add</button>
 
-
   <div class="ui error message" *ngIf="error">
+
     <div class="header">Error</div>
+
     <p *ngFor="let error of errorMessage">{{error.message}}</p>
+
   </div>
 
 </form>

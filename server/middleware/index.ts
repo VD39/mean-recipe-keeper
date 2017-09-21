@@ -43,7 +43,7 @@ export const checkRequiredFields = (fields: any): object[] => {
           message
         });
       }
-    } else if (!item) {
+    } else if (!item && item !== 0)  {
       errors.push({
         field,
         message
