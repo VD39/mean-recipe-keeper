@@ -15,6 +15,7 @@ import { responseMiddleware } from './middleware';
 // Get our API routes
 import RecipeRoute from './routes/recipes';
 import AuthenticationRoute from './routes/authentication';
+import CourseTypesRoute from './routes/courseTypes';
 
 
 class Server {
@@ -69,8 +70,7 @@ class Server {
     // initialize routes
     this.app.use(`/api/${process.env.VERSION_NUMBER}`, RecipeRoute); // Use Recipes routes in application
     this.app.use(`/api/${process.env.VERSION_NUMBER}`, AuthenticationRoute); // Use Authentication routes in application
-
-
+    this.app.use(`/api/${process.env.VERSION_NUMBER}`, CourseTypesRoute); // Use Authentication routes in application
   }
 
 

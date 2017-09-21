@@ -34,6 +34,8 @@ export const checkRequiredFields = (fields: any): object[] => {
     const item = fields[field][0];
     const message = fields[field][1];
 
+    console.log('item: ', !item);
+
     if (Array.isArray(item)) {
       if (item.length === 0) {
         errors.push({

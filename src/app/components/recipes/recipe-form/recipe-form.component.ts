@@ -1,14 +1,5 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormArray,
-  FormControl
-} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from "@angular/forms";
 import { RecipeService } from '../../../services/recipe.service';
 import { Router } from '@angular/router';
 
@@ -18,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./recipe-form.component.css']
 })
 export class RecipeFormComponent implements OnInit {
+  courseTypes: any;
   errorMessage: any;
   error: boolean = false;
   recipeForm: FormGroup;
@@ -30,12 +22,20 @@ export class RecipeFormComponent implements OnInit {
     private recipeService: RecipeService,
     private formBuilder: FormBuilder,
     private router: Router
-
   ) {
     this.createForm();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.recipeService.getCourseTypes().subscribe(
+      (data) => {
+        this.courseTypes = data.data;
+      },
+      (error) => {
+        this.error = true;
+        this.errorMessage = error.message;
+      });
+  }
 
   addRecipe(): void {
     this.recipeService.addRecipe(this.recipeForm.getRawValue()).subscribe(
@@ -45,7 +45,6 @@ export class RecipeFormComponent implements OnInit {
       (error) => {
         this.error = true;
         this.errorMessage = error.message;
-        console.log(error);
       });
   }
 
@@ -81,7 +80,7 @@ export class RecipeFormComponent implements OnInit {
     });
   }
 
-  getImageData(event: any) {
+  getImageData(event: any): void {
     event.preventDefault();
     const reader = new FileReader();
     const file = event.target.files[0];

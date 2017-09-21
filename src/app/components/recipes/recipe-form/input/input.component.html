@@ -1,0 +1,15 @@
+<div [formGroup]="parentFormGroup">
+  <div class="field" [ngClass]="{'required': isRequired}">
+    <label for="{{name}}">{{labelName}}</label>
+
+    <input *ngIf="type == 'text'" id="{{name}}" class="form-control" type="text" [formControlName]="controlName" />
+
+    <textarea *ngIf="type == 'textarea'" id="{{name}}" class="form-control" type="text" [formControlName]="controlName"></textarea>
+
+    <div class="field">
+      <div class="ui error message" *ngIf="isRequired && parentFormGroup.controls[controlName].errors?.required && parentFormGroup.controls[controlName].dirty">
+        <p>This field is required.</p>
+      </div>
+    </div>
+  </div>
+</div>

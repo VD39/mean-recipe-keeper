@@ -5,7 +5,7 @@
 <div class="recipe" *ngIf="recipe && !noRecipe">
   <h1 class="ui center aligned icon header">{{recipe.name}}</h1>
   <div class="ui segment">
-    <img class="ui centered medium image" src="./assets/images/{{recipe.image}}" alt="{{recipe.name}}" name="{{recipe.name}}">
+    <img class="ui centered medium image" src="{{recipe.image}}" alt="{{recipe.name}}" name="{{recipe.name}}">
   </div>
   <div class="intro">
     <p class="italic">
@@ -38,7 +38,7 @@
   </h4>
   <div class="ui raised segments" *ngIf="recipe.type === 0">
     <div class="ui segment" *ngFor="let ingredient of recipe.ingredients; let i = index">
-      <p>{{ingredient}}</p>
+      <p>{{ingredient.quantity}} of {{ingredient.ingredient}}</p>
     </div>
   </div>
   <div *ngIf="recipe.type === 1">
@@ -47,7 +47,7 @@
         <p>{{ingredient.for}}</p>
       </div>
       <div class="ui secondary segment" *ngFor="let iingredient of ingredient.ingredients; let i = index">
-        <p>{{iingredient}}</p>
+        <p>{{iingredient.quantity}} of {{iingredient.ingredient}}</p>
       </div>
     </div>
   </div>

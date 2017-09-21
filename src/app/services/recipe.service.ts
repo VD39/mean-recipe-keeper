@@ -40,4 +40,14 @@ export class RecipeService {
         return Observable.throw(details);
       });;
   }
+
+  getCourseTypes() {
+      return this.http
+        .get('./api/v1/coursetypes')
+        .map((response: any) => response.json())
+        .catch((err: Response) => {
+          const details = err.json();
+          return Observable.throw(details);
+        });;
+    }
 }

@@ -22,6 +22,7 @@ import { IngredientsComponent } from "./components/recipes/recipe-form/ingredien
 import { ItemArrayComponent } from "./components/recipes/recipe-form/item-array/item-array.component";
 import { ItemComponent } from "./components/recipes/recipe-form/item/item.component";
 import { TrimPipe } from './pipes/trim.pipe';
+import { InputComponent } from './components/recipes/recipe-form/input/input.component';
 
 
 
@@ -41,7 +42,8 @@ import { TrimPipe } from './pipes/trim.pipe';
     IngredientsComponent,
     ItemArrayComponent,
     ItemComponent,
-    TrimPipe
+    TrimPipe,
+    InputComponent
   ],
   imports: [
     BrowserModule,

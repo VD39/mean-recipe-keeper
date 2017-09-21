@@ -86,7 +86,7 @@ export class RecipeRoute {
       Recipe
         .create(req.body)
         .then((recipe) => {
-          res.success(201, recipe);
+          res.success(201, recipe, 'Recipe added successfully.');
         })
         .catch(next);
     }

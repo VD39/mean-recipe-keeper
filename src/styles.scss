@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+.field {
+  margin-bottom: 25px !important;
+}
+
+.ui.error {
+  margin-top: 10px !important;
+}
+
+.ui.form .field > label {
+  font-size: 16px !important;
+}
