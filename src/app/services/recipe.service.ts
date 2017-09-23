@@ -11,9 +11,9 @@ export class RecipeService {
     private http: Http
   ) { }
 
-  getRecipes(fields: string): Observable<IResponse> {
+  getRecipes(fields: string, limit: number = 0, coursetype: string = ''): Observable<IResponse> {
     return this.http
-      .get(`./api/v1/recipes?fields=${fields}`)
+      .get(`./api/v1/recipes?fields=${fields}&limit=${limit}&coursetype=${coursetype}`)
       .map((response) => response.json())
       .catch((err: Response) => {
         const details = err.json();

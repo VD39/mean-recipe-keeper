@@ -14,6 +14,9 @@ export class CourseTypesRoute {
   public getCourseTypes(req: Request, res: Response, next: NextFunction) {
     CourseType
       .find({})
+      .sort({
+        type: 1
+      })
       .then((courseTypes) => {
         res.success(200, courseTypes, null, {
           count: courseTypes.length

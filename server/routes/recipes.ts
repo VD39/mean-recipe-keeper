@@ -14,6 +14,9 @@ export class RecipeRoute {
 
   public getRecipes(req: Request, res: Response, next: NextFunction) {
     let projection;
+    let find = {};
+
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
 
     if (req.query.fields) {
       projection = req.query.fields.split(',').reduce((object, field) => {
@@ -22,11 +25,19 @@ export class RecipeRoute {
       }, {});
     }
 
+    if (req.query.coursetype) {
+      find = {
+        course_type: req.query.coursetype
+      };
+    }
+
+
     Recipe
-      .find({}, projection)
+      .find(find, projection)
       .sort({
         date_added: -1
       })
+      .limit(limit)
       .then((recipes) => {
         res.success(200, recipes, null, {
           count: recipes.length
@@ -82,7 +93,7 @@ export class RecipeRoute {
     if (errors.length > 0) {
       return res.error(400, errors); // Return error message
     } else {
-      req.body.total_time = req.body.prep_time + req.body.cook_time;
+      req.body.total_time = parseInt(req.body.prep_time, 10) + parseInt(req.body.cook_time, 10);
       Recipe
         .create(req.body)
         .then((recipe) => {

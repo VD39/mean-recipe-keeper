@@ -12,6 +12,7 @@ import {
 import {
   IRecipe
 } from "../../../models/recipe.interface";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe',
@@ -22,12 +23,12 @@ export class RecipeComponent implements OnInit, OnDestroy {
   noRecipe: boolean = true;
   recipe: IRecipe | IRecipe[];
   id: number;
-  sub: any;
+  sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -47,4 +48,16 @@ export class RecipeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  convertMinsToHrsMins(minutes) {
+    let h: any = Math.floor(minutes / 60);
+    let m: any = minutes % 60;
+    h = h < 10 ? '0' + h : h;
+    m = m < 10 ? '0' + m : m;
+    return h + ':' + m;
+  }
+
+
+
+
 }

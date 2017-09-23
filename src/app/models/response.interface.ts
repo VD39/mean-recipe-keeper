@@ -6,7 +6,7 @@ export interface IResponse {
 
     status: string;
     data: IRecipe[];
-    meta: Object;
+    meta: any;
     message: string[];
 //  |
 //     status: string;

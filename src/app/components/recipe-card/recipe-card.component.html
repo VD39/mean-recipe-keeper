@@ -1,0 +1,19 @@
+<div class="ui card">
+  <a class="image" [routerLink]="['/recipe', recipe._id]">
+    <img src="{{recipe.image}}">
+  </a>
+
+  <div class="content">
+    <div class="header">{{recipe.name}}</div>
+    <div class="meta">
+      <a>{{recipe.course_type}}</a>
+    </div>
+    <div class="description">
+      {{recipe.intro | trim:100}}
+    </div>
+  </div>
+
+  <a class="ui bottom attached button purple" *ngIf="loggedIn" [routerLink]="['/admin/recipe/edit/', recipe._id]">
+     Edit
+    </a>
+</div>

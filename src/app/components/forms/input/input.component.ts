@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
+  host: {'class': 'field'},
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css']
 })
@@ -21,6 +22,4 @@ export class InputComponent {
 
   @Input()
   type: any;
-
-  constructor() { }
 }

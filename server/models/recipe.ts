@@ -47,4 +47,6 @@ const RecipeSchema = new mongoose.Schema({
 const Recipe = mongoose.model('Recipe', RecipeSchema);
 
 
-export { Recipe };
+export {
+  Recipe
+};

@@ -28,13 +28,13 @@ export class ItemArrayComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   add(event: Event): void {
     event.preventDefault();
-    var formControl = < FormArray > this.itemArray;
+    var formControl = <FormArray>this.itemArray;
 
     if (this.value === 'Directions') {
       formControl.push(new FormControl(''));
@@ -48,7 +48,7 @@ export class ItemArrayComponent implements OnInit {
 
   delete(event: Event, index: number): void {
     event.preventDefault();
-    var formControl = < FormArray > this.itemArray;
+    var formControl = <FormArray>this.itemArray;
     formControl.removeAt(index);
   }
 }

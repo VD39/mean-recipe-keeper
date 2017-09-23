@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from "@angular/forms";
 import { RecipeService } from '../../../services/recipe.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { IRecipe } from '../../../models/recipe.interface';
 
 @Component({
   selector: 'app-recipe-form',
@@ -9,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./recipe-form.component.css']
 })
 export class RecipeFormComponent implements OnInit {
+  recipe: any;
+  sub: Subscription;
   courseTypes: any;
   errorMessage: any;
   error: boolean = false;
@@ -21,12 +25,75 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.createForm();
   }
 
+  populateInner(items: any[]): FormGroup[] {
+    return items.map((item) => {
+      return this.formBuilder.group({
+        quantity: item.quantity,
+        ingredient: item.ingredient
+      })
+    });
+  }
+
+  populateIngredients(ingredients: any, type: number): void {
+    const control: FormArray = <FormArray>this.ingredients;
+
+    // TODO: use reduce
+    ingredients.map((item) => {
+      if (type === 1) {
+        const test: FormGroup = this.formBuilder.group({
+          for: item.for,
+          ingredients: new FormArray(
+            this.populateInner(item.ingredients)
+          )
+        });
+        control.push(test);
+
+      } else {
+        control.push(
+          this.formBuilder.group({
+            quantity: item.quantity,
+            ingredient: item.ingredient
+          })
+        );
+      }
+    });
+  }
+
+
+  populateDirections(directions: any[]): void {
+    const control: FormArray = <FormArray>this.directions;
+    directions.map((item) => {
+      control.push(
+        new FormControl(item)
+      );
+    });
+  }
+
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.recipeService.getRecipe(params['id']).subscribe(
+          (data) => {
+            this.recipe = data.data;
+            (<FormGroup>this.recipeForm).patchValue(this.recipe, { onlySelf: true });
+            this.populateIngredients(this.recipe.ingredients, this.recipe.type);
+            this.populateDirections(this.recipe.directions);
+          },
+          (error) => {
+            this.error = true;
+            this.errorMessage = error.message;
+          });
+      }
+    });
+
+
+
     this.recipeService.getCourseTypes().subscribe(
       (data) => {
         this.courseTypes = data.data;
@@ -35,6 +102,10 @@ export class RecipeFormComponent implements OnInit {
         this.error = true;
         this.errorMessage = error.message;
       });
+  }
+
+  private ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   addRecipe(): void {
@@ -53,7 +124,7 @@ export class RecipeFormComponent implements OnInit {
     this.ingredients = this.formBuilder.array([]);
     this.image = this.formBuilder.control('', Validators.required);
     this.recipeForm = this.formBuilder.group({
-      type: [99, Validators.required],
+      type: ['0', Validators.required],
       name: ['', Validators.required],
       intro: ['', Validators.required],
       image: this.image,

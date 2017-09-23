@@ -4,18 +4,18 @@
 
     <div class="twelve wide field">
 
-      <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
+      <app-input type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
 
-      <app-input class="field" type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro" [isRequired]="true"></app-input>
+      <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro" [isRequired]="true"></app-input>
 
       <div class="two fields">
 
-        <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Yields" controlName="yields" [isRequired]="true"></app-input>
+        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Yields" controlName="yields" [isRequired]="true"></app-input>
 
-        <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Preparation Time" controlName="prep_time"
+        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Preparation Time" controlName="prep_time"
           [isRequired]="true"></app-input>
 
-        <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
+        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
 
         <div class="field required">
 
@@ -75,7 +75,7 @@
 
             </div>
 
-            <app-input class="field" type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
+            <app-input type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
 
           </div>
 
@@ -143,4 +143,7 @@
 
   </div>
 
+  <pre>{{recipeForm.value | json}}</pre>
 </form>
+
+
