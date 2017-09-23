@@ -1,4 +1,8 @@
-<form class="ui form error" [formGroup]="recipeForm" (submit)="addRecipe()" novalidate>
+<div class="ui active dimmer" *ngIf="loading">
+    <div class="ui indeterminate massive text loader">Fetching Recipe</div>
+  </div>
+
+<form class="ui form error" [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading">
 
   <div class="fields">
 

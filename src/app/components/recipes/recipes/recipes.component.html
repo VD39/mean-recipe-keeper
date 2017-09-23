@@ -1,3 +1,11 @@
-<div class="ui four column grid link cards">
-    <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" [loggedIn]="loggedIn"></app-recipe-card>
-  </div>
+<div class="ui active dimmer" *ngIf="loading">
+  <div class="ui indeterminate massive text loader">Fetching Recipes</div>
+</div>
+
+<div *ngIf="!loading && noResult">
+  <p>No results were found.</p>
+</div>
+
+<div class="ui four column grid link cards" *ngIf="!loading && !noResult">
+  <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-card>
+</div>

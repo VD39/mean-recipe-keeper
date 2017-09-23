@@ -24,6 +24,9 @@ import { InputComponent } from './components/forms/input/input.component';
 import { ItemComponent } from './components/forms/item/item.component';
 import { CourseTypeComponent } from './components/course-type/course-type.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
+import { FormService } from './services/form.service';
+import { SearchComponent } from './components/search/search.component';
+import { AdminButtonsComponent } from './components/forms/admin-buttons/admin-buttons.component';
 
 
 
@@ -45,7 +48,9 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
     TrimPipe,
     InputComponent,
     CourseTypeComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    SearchComponent,
+    AdminButtonsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
   providers: [
     RecipeService,
     AuthenticationService,
+    FormService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

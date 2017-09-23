@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private auth: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) { }
 
@@ -29,7 +29,14 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    this.authenticationService.logout();
     this.router.navigate(['/']);
+  }
+
+  performSearch(searchTerm: HTMLInputElement): void {
+    if(searchTerm.value) {
+      this.router.navigate(['search', searchTerm.value]);
+      searchTerm.value = '';
+    }
   }
 }

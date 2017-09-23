@@ -1,8 +1,16 @@
-<div *ngIf="noRecipe">
-  NOT FOUND
+<div class="ui active dimmer" *ngIf="loading">
+  <div class="ui indeterminate massive text loader">Fetching Recipe</div>
 </div>
 
-<div class="recipe" *ngIf="recipe && !noRecipe">
+<div *ngIf="!loading && noResult">
+  <p>No results were found.</p>
+</div>
+
+
+<div class="recipe" *ngIf="!loading && !noResult">
+
+  <app-admin-buttons class="two ui buttons" [id]="recipe._id" *ngIf="authenticationService.isLoggedIn()"></app-admin-buttons>
+
   <h1 class="ui center aligned icon header">{{recipe.name}}</h1>
   <div class="ui segment">
     <img class="ui centered medium image" src="{{recipe.image}}" alt="{{recipe.name}}" name="{{recipe.name}}">
@@ -22,15 +30,15 @@
     </div>
     <div class="ui segment">
       <p>Prep Time:</p>
-      <p><i class="hourglass half icon"></i> {{recipe.prep_time}}</p>
+      <p><i class="hourglass half icon"></i> {{convertMinsToHrsMins(recipe.prep_time)}}</p>
     </div>
     <div class="ui segment">
       <p>Cook Time:</p>
-      <p><i class="hourglass half icon"></i> {{recipe.cook_time}}</p>
+      <p><i class="hourglass half icon"></i> {{convertMinsToHrsMins(recipe.cook_time)}}</p>
     </div>
     <div class="ui segment">
       <p>Total Time:</p>
-      <p><i class="hourglass full icon"></i> {{recipe.total_time}}</p>
+      <p><i class="hourglass full icon"></i> {{convertMinsToHrsMins(recipe.total_time)}}</p>
     </div>
   </div>
   <h4 class="ui horizontal divider header">

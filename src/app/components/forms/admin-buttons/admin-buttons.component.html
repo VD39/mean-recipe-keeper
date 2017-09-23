@@ -1,0 +1,10 @@
+<div>
+  <a class="ui button red" (click)="recipeService.deleteRecipe(id)">
+    <i class="icon delete"></i>
+    Delete
+  </a>
+  <a class="ui button purple" [routerLink]="['/admin/recipe/edit/', id]">
+    <i class="icon edit"></i>
+    Edit
+  </a>
+</div>

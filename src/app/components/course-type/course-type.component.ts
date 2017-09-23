@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { IRecipe } from '../../models/recipe.interface';
-import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-course-type',
@@ -10,30 +9,35 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./course-type.component.css']
 })
 export class CourseTypeComponent implements OnInit {
-  loggedIn: boolean;
-  noneFound: boolean = true;
+  loading: boolean = true;
+  noResult: boolean = false;
   recipes: IRecipe[];
-  noRecipes: boolean = true;
   sub: any;
 
   constructor(
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private recipeService: RecipeService
-  ) { }
+  ) {
+    this.recipeService.event.subscribe((data) => {
+      this.recipes = this.recipes.filter((recipe) => recipe._id !== data.id);
+    });
+  }
 
   ngOnInit() {
-    this.loggedIn = this.authenticationService.isLoggedIn();
     this.sub = this.route.params.subscribe(params => {
       this.recipeService.getRecipes('_id,name,image,intro,course_type', 0, params['courseType']).subscribe(
         (data) => {
+          this.loading = false;
           if (data.status === 'success' && data.meta.count > 0) {
-            this.noneFound = false;
-            this.noRecipes = false;
             this.recipes = data.data;
+            this.noResult = false;
+          } else {
+            this.noResult = true;
           }
         },
         (error) => {
+          this.loading = false;
+          this.noResult = true;
           console.log(error);
         });
     });

@@ -13,7 +13,7 @@ export class RecipeRoute {
   }
 
   public getRecipes(req: Request, res: Response, next: NextFunction) {
-    let projection;
+    let projection = {};
     let find = {};
 
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
@@ -22,15 +22,19 @@ export class RecipeRoute {
       projection = req.query.fields.split(',').reduce((object, field) => {
         object[field.trim()] = true;
         return object;
-      }, {});
+      }, projection);
     }
 
     if (req.query.coursetype) {
-      find = {
-        course_type: req.query.coursetype
-      };
+      find['course_type'] = req.query.coursetype;
     }
 
+    if (req.query.search) {
+      find['name'] = {
+        '$regex': req.query.search,
+        '$options': 'i'
+      };
+    }
 
     Recipe
       .find(find, projection)
@@ -39,7 +43,7 @@ export class RecipeRoute {
       })
       .limit(limit)
       .then((recipes) => {
-        res.success(200, recipes, null, {
+        res.success(200, recipes, `Found ${recipes.length} recipes`, {
           count: recipes.length
         });
       })
@@ -59,9 +63,14 @@ export class RecipeRoute {
         })
         .then((recipe) => {
           if (!recipe) {
-            return res.error(400, `No recipe with the ID ${id} was found.`); // Return error message
+            return res.success(200, recipe, `No recipe with the ID ${id} was found.`, {
+              count: 0
+            });
           }
-          return res.success(200, recipe); // Return error message
+
+          return res.success(200, recipe, `Recipe with the ID ${id} found.`, {
+            count: 1
+          });
         })
         .catch(next);
     } else {
@@ -97,7 +106,7 @@ export class RecipeRoute {
       Recipe
         .create(req.body)
         .then((recipe) => {
-          res.success(201, recipe, 'Recipe added successfully.');
+          res.success(200, recipe, 'Recipe added successfully.');
         })
         .catch(next);
     }
@@ -113,7 +122,7 @@ export class RecipeRoute {
           _id: req.params.id
         })
           .then((recipe) => {
-            res.send(recipe);
+            res.success(201, recipe, 'Recipe updated successfully.');
           });
       })
       .catch(next);
@@ -125,7 +134,7 @@ export class RecipeRoute {
         _id: req.params.id
       })
       .then((recipe) => {
-        res.send(recipe);
+        res.success(204);
       })
       .catch(next);
   }

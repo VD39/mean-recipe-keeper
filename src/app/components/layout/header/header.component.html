@@ -19,13 +19,13 @@
     <div class="right menu">
       <div class="item">
         <div class="ui icon input">
-          <input type="text" placeholder="Search...">
+          <input type="text" placeholder="Search..." #searchTerm (keyup.enter)="performSearch(searchTerm)">
           <i class="search icon"></i>
         </div>
       </div>
-      <a class="item" [routerLink]="['/login']" *ngIf="!auth.isLoggedIn()">Sign In</a>
-      <a class="item" [routerLink]="['/admin/recipe/add']" *ngIf="auth.isLoggedIn()">Add Recipe</a>
-      <a class="item" *ngIf="auth.isLoggedIn()" (click)="logout()">Sign Out</a>
+      <a class="item" [routerLink]="['/login']" *ngIf="!authenticationService.isLoggedIn()">Sign In</a>
+      <a class="item" [routerLink]="['/admin/recipe/add']" *ngIf="authenticationService.isLoggedIn()">Add Recipe</a>
+      <a class="item" *ngIf="authenticationService.isLoggedIn()" (click)="logout()">Sign Out</a>
     </div>
   </div>
 </div>

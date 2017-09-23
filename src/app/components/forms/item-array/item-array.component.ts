@@ -10,6 +10,7 @@ import {
   FormBuilder,
   Validators
 } from "@angular/forms";
+import { FormService } from '../../../services/form.service';
 
 @Component({
   selector: 'app-item-array',
@@ -27,6 +28,7 @@ export class ItemArrayComponent implements OnInit {
   value: string;
 
   constructor(
+    private formService: FormService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -34,21 +36,12 @@ export class ItemArrayComponent implements OnInit {
 
   add(event: Event): void {
     event.preventDefault();
-    var formControl = <FormArray>this.itemArray;
-
-    if (this.value === 'Directions') {
-      formControl.push(new FormControl(''));
-    } else {
-      formControl.push(this.formBuilder.group({
-        quantity: ['', Validators.required],
-        ingredient: ['', Validators.required],
-      }));
-    }
+    this.itemArray = this.formService.populateArray(this.itemArray, this.value);
   }
 
   delete(event: Event, index: number): void {
     event.preventDefault();
-    var formControl = <FormArray>this.itemArray;
+    const formControl = <FormArray>this.itemArray;
     formControl.removeAt(index);
   }
 }

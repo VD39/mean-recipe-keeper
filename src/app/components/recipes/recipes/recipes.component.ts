@@ -1,16 +1,6 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  RecipeService
-} from "../../../services/recipe.service";
-import {
-  AuthenticationService
-} from '../../../services/authentication.service';
-import {
-  IRecipe
-} from '../../../models/recipe.interface';
+import { Component, OnInit } from '@angular/core';
+import { RecipeService } from "../../../services/recipe.service";
+import { IRecipe } from '../../../models/recipe.interface';
 
 @Component({
   selector: 'app-recipes',
@@ -18,23 +8,32 @@ import {
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  loggedIn: boolean;
+  loading: boolean = true;
+  noResult: boolean = false;
   recipes: IRecipe[];
 
   constructor(
-    private authenticationService: AuthenticationService,
     private recipeService: RecipeService
-  ) {}
+  ) {
+    this.recipeService.event.subscribe((data) => {
+      this.recipes = this.recipes.filter((recipe) => recipe._id !== data.id);
+    });
+  }
 
   ngOnInit() {
-    this.loggedIn = this.authenticationService.isLoggedIn();
     this.recipeService.getRecipes('_id,name,image,intro,course_type').subscribe(
       (data) => {
-        if (data.status === 'success') {
+        this.loading = false;
+        if (data.status === 'success' && data.meta.count > 0) {
           this.recipes = data.data;
+          this.noResult = false;
+        } else {
+          this.noResult = true;
         }
       },
       (error) => {
+        this.loading = false;
+        this.noResult = true;
         console.log(error);
       });
   }

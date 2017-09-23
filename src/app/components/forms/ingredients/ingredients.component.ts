@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormService } from '../../../services/form.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -15,6 +16,7 @@ export class IngredientsComponent implements OnInit {
   parentFormGroup: FormGroup;
 
   constructor(
+    private formService: FormService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -29,30 +31,12 @@ export class IngredientsComponent implements OnInit {
 
   add(event: Event): void {
     event.preventDefault();
-    const control = <FormArray>this.formArrayxx;
-    control.push(this.initIngrediants());
+    this.formArrayxx = this.formService.populateIngredients(this.formArrayxx);
   }
 
   delete(event: Event, index: number): void {
     event.preventDefault();
-    var formControl = <FormArray>this.formArrayxx;
+    const formControl = <FormArray>this.formArrayxx;
     formControl.removeAt(index);
   }
-
-
-  addIngrediant(event: Event, form: FormArray): void {
-    event.preventDefault();
-    const control = <FormArray>form;
-    control.push(new FormControl(''));
-  }
-
-  deleteIngrediant(event: Event, index: number, form: FormArray): void {
-    event.preventDefault();
-    var formControl = <FormArray>form;
-    formControl.removeAt(index);
-  }
-
-
-
-
 }

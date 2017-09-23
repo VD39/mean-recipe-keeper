@@ -10,6 +10,7 @@ import { RecipeComponent } from "../components/recipes/recipe/recipe.component";
 import { AdminComponent } from "../components/admin/admin.component";
 import { RecipeFormComponent } from '../components/forms/recipe-form/recipe-form.component';
 import { CourseTypeComponent } from '../components/course-type/course-type.component';
+import { SearchComponent } from '../components/search/search.component';
 
 const recipesRoutes: Routes = [
   {
@@ -23,6 +24,10 @@ const recipesRoutes: Routes = [
   {
     path: 'course-type/:courseType',
     component: CourseTypeComponent
+  },
+  {
+    path: 'search/:value',
+    component: SearchComponent
   },
   {
     path: 'admin',
