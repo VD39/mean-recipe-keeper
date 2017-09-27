@@ -1,14 +1,19 @@
-.recipe {
-  .intro {
-    font-size: 1.7rem;
-    font-family: "Crimson Text";
-    font-style: italic;
-    width: 80%;
-    text-align: center;
-    margin: 1em auto 2em auto;
-  }
-  h1 {
-    font-size: 35px;
-    margin-bottom: 25px;
-  }
+md-icon {
+  margin-right: 10px;
+}
+
+.name {
+  margin: auto;
+}
+
+p.mat-line {
+  font-size: 20px !important;
+}
+
+h2.mat-subheader {
+  font-size: 25px;
+}
+
+span.step {
+  font-size: 25px;
 }

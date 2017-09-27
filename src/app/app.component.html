@@ -1,7 +1,8 @@
-<app-header></app-header>
+<section class="app" fxLayout="column">
+  <app-header></app-header>
 
-<div class="ui container">
-  <router-outlet></router-outlet>
-</div>
-
-<app-footer></app-footer>
+  <perfect-scrollbar class="main-container">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </perfect-scrollbar>
+</section>

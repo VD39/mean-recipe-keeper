@@ -113,6 +113,7 @@ export class RecipeRoute {
   }
 
   public updateRecipe(req: Request, res: Response, next: NextFunction) {
+    req.body.total_time = parseInt(req.body.prep_time, 10) + parseInt(req.body.cook_time, 10);
     Recipe
       .findByIdAndUpdate({
         _id: req.params.id

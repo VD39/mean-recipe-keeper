@@ -1,13 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 
-.field {
-  margin-bottom: 25px !important;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.15/css/perfect-scrollbar.min.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import "~@angular/material/prebuilt-themes/purple-green.css";
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.ui.error {
-  margin-top: 10px !important;
+body {
+  font-family: Roboto, sans-serif;
+  background-color: #303030;
+  color: white;
 }
 
-.ui.form .field > label {
-  font-size: 16px !important;
+.full-width {
+  width: 100% !important;
+}
+
+.mat-card {
+  margin: .333333rem;
+  overflow: hidden;
+}
+
+.mat-tab-label {
+  width: 100%;
+}
+
+.ps-scrollbar-y-rail {
+  z-index: 999;
+}
+
+.auto .mat-list-item-content {
+  height: auto !important;
+}
+
+.card-img {
+  padding: 0 !important;
+  img {
+    width: 100%;
+  }
 }

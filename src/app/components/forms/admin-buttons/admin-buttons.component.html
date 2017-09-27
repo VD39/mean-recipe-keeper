@@ -1,10 +1,10 @@
-<div>
-  <a class="ui button red" (click)="recipeService.deleteRecipe(id)">
-    <i class="icon delete"></i>
-    Delete
-  </a>
-  <a class="ui button purple" [routerLink]="['/admin/recipe/edit/', id]">
-    <i class="icon edit"></i>
-    Edit
-  </a>
-</div>
+<button md-menu-item [routerLink]="['/admin/recipe/edit/', id]">
+  <md-icon>edit</md-icon>
+  <span>Edit</span>
+</button>
+
+
+<button md-menu-item (click)="recipeService.deleteRecipe(id)">
+  <md-icon>delete</md-icon>
+  <span>Delete</span>
+</button>

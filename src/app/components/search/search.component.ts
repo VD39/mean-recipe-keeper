@@ -10,6 +10,8 @@ import { IRecipe } from '../../models/recipe.interface';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  loading: boolean = true;
+  noResult: boolean = false;
   recipes: IRecipe[];
   sub: Subscription;
 
@@ -27,17 +29,20 @@ export class SearchComponent implements OnInit {
         if (searchTerm) {
           this.recipeService.searchRecipes(searchTerm, '_id,name,image,intro,course_type').subscribe(
             (data) => {
-              console.log(data);
-              this.recipes = data.data;
+              this.loading = false;
+              if (data.status === 'success' && data.meta.count > 0) {
+                this.recipes = data.data;
+                this.noResult = false;
+              } else {
+                this.noResult = true;
+              }
             },
             (error) => {
+              this.loading = false;
+              this.noResult = true;
               console.log(error);
-            }
-          )
+            });
         }
-
-
-
       });
   }
 

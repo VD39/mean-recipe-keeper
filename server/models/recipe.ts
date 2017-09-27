@@ -17,7 +17,7 @@ const RecipeSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Name field is required']
   },
-  yields: {
+  serves: {
     type: String,
     required: [true, 'Name field is required']
   },

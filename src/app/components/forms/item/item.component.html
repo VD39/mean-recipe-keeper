@@ -1,22 +1,23 @@
-<div class="html ui top attached segment item" [formGroup]="item">
-  <div class="ui attached label">
-    {{value}} {{index + 1}}
-    <i data-content="Copy code" (click)="delete.emit($event, index)" class="remove icon"></i>
+<div [formGroup]="item">
+
+  <md-card-title>
+    {{index + 1}}
+    <div fxFlex></div>
+    <md-icon (click)="delete.emit($event, index)">delete</md-icon>
+  </md-card-title>
+
+  <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="value === 'Ingredients'">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
+      <app-input type="text" [parentFormGroup]="item" labelName="Quantity" controlName="quantity" [isRequired]="true"></app-input>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="70" fxFlex.sm="70">
+      <app-input type="text" [parentFormGroup]="item" labelName="Ingredient" controlName="ingredient" [isRequired]="true"></app-input>
+    </div>
   </div>
 
-  <div class="fields" *ngIf="value === 'Ingredients'">
-    <div class="four wide field">
-      <label for="exampleSelect1">Quantity</label>
-      <input type="text" name="quantity" placeholder="Quantity" formControlName="quantity">
+  <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="value === 'Directions'">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+      <app-input type="textarea" [parentFormGroup]="item" labelName="Directions" [controlName]="index"></app-input>
     </div>
-    <div class="twelve wide field">
-      <label for="exampleSelect1">Ingredient</label>
-      <input type="text" name="ingredient" placeholder="Ingredient" formControlName="ingredient">
-    </div>
-  </div>
-
-
-  <div class="field" *ngIf="value === 'Directions'">
-    <textarea class="form-control" id="message" rows="5" [formControlName]="index"></textarea>
   </div>
 </div>

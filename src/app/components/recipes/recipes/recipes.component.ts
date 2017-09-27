@@ -21,7 +21,7 @@ export class RecipesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.recipeService.getRecipes('_id,name,image,intro,course_type').subscribe(
+    this.recipeService.getRecipes('').subscribe(
       (data) => {
         this.loading = false;
         if (data.status === 'success' && data.meta.count > 0) {

@@ -1,23 +1,10 @@
 <div [formGroup]="parentFormGroup">
+  <md-input-container class="full-width">
+    <input *ngIf="type != 'textarea'" mdInput placeholder="{{labelName}}" type="{{type}}" [formControlName]="controlName"/>
+    <textarea *ngIf="type == 'textarea'" mdInput placeholder="{{labelName}}" [formControlName]="controlName"></textarea>
+  </md-input-container>
 
-  <div class="field" [ngClass]="{'required': isRequired}">
-
-    <label for="{{controlName}}">{{labelName}}</label>
-
-    <input *ngIf="type == 'text'" id="{{controlName}}" class="form-control" type="text" [formControlName]="controlName" />
-
-    <textarea *ngIf="type == 'textarea'" id="{{controlName}}" class="form-control" type="text" [formControlName]="controlName"></textarea>
-
-    <div class="field">
-
-      <div class="ui error message" *ngIf="isRequired && parentFormGroup.controls[controlName].errors?.required && parentFormGroup.controls[controlName].dirty">
-
-        <p>This field is required.</p>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <md-error *ngIf="isRequired && parentFormGroup.controls[controlName].errors?.required && parentFormGroup.controls[controlName].dirty">
+    <p>This field is required.</p>
+  </md-error>
 </div>

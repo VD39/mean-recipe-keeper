@@ -1,13 +1,20 @@
-<form class="ui form error" [formGroup]="loginForm" (submit)="login()" novalidate>
+<div class="login-form">
+  <md-toolbar>
+    <md-icon>account_circle</md-icon>
+    <span>Login</span>
+  </md-toolbar>
+  <md-card>
+    <form [formGroup]="loginForm" (submit)="login()" novalidate>
+      <app-input type="text" [parentFormGroup]="loginForm" labelName="Email" controlName="email" [isRequired]="true"></app-input>
 
-  <app-input type="text" [parentFormGroup]="loginForm" labelName="Email" controlName="email" [isRequired]="true"></app-input>
+      <app-input type="password" [parentFormGroup]="loginForm" labelName="Password" controlName="password" [isRequired]="true"></app-input>
 
-  <app-input type="text" [parentFormGroup]="loginForm" labelName="Password" controlName="password" [isRequired]="true"></app-input>
+      <button md-raised-button color="accent" [disabled]="loginForm.invalid || processing">Submit</button>
 
-  <button class="ui button" type="submit" [disabled]="loginForm.invalid || processing">Submit</button>
-
-  <div class="ui error message" *ngIf="error">
-    <div class="header">Error</div>
-    <p>{{errorMessage}}</p>
-  </div>
-</form>
+      <md-error *ngIf="error">
+        <h4>Error</h4>
+        <p>{{errorMessage}}</p>
+      </md-error>
+    </form>
+  </md-card>
+</div>

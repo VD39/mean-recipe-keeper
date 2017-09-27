@@ -1,153 +1,157 @@
-<div class="ui active dimmer" *ngIf="loading">
-    <div class="ui indeterminate massive text loader">Fetching Recipe</div>
-  </div>
+<div>
+  <section *ngIf="loading">
+    <md-progress-bar mode="indeterminate"></md-progress-bar>
+  </section>
 
-<form class="ui form error" [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading">
+  <form [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading">
 
-  <div class="fields">
+    <md-toolbar>
+      Add
+    </md-toolbar>
 
-    <div class="twelve wide field">
+    <md-tab-group>
+      <md-tab label="Overview">
+        <ng-template md-tab-label>
+          <md-icon>restaurant</md-icon>
+          <span>Overview</span>
+        </ng-template>
 
-      <app-input type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
+        <div>
+          <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+            <div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="40">
+              <md-card class="card-img">
+                <img *ngIf="recipeForm.controls.image.value" src="{{recipeForm.controls.image.value}}" />
+                <img *ngIf="!recipeForm.controls.image.value" src="{{defaultImage}}" />
 
-      <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro" [isRequired]="true"></app-input>
+                <app-input type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
 
-      <div class="two fields">
+                <label for="file-upload">
+                    <div class="mat-raised-button mat-accent full-width">
+                        <span class="mat-button-wrapper">
+                          <md-icon>library_add</md-icon>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </div>
+                  <input id="file-upload" type="file" (change)="getImageData($event)" style="display: none;"/>
+                </label>
 
-        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Yields" controlName="yields" [isRequired]="true"></app-input>
-
-        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Preparation Time" controlName="prep_time"
-          [isRequired]="true"></app-input>
-
-        <app-input type="text" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
-
-        <div class="field required">
-
-          <label for="exampleSelect1">Course Type</label>
-
-          <select class="ui fluid" formControlName="course_type">
-
-              <option *ngFor="let courseType of courseTypes" value="{{courseType.type}}">{{courseType.type}}</option>
-
-            </select>
-
-          <div class="field">
-
-            <div class="ui error message" *ngIf="isRequired && parentFormGroup.controls.course_type.errors?.required && parentFormGroup.controls.course_type.dirty">
-
-              <p>This field is required.</p>
-
+              </md-card>
             </div>
 
-          </div>
+            <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60">
+              <app-input type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
+              <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro" [isRequired]="true"></app-input>
 
-        </div>
+              <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                  <app-input type="number" [parentFormGroup]="recipeForm" labelName="Yields" controlName="yields" [isRequired]="true"></app-input>
+                </div>
 
-      </div>
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                  <app-input type="number" [parentFormGroup]="recipeForm" labelName="Preparation Time" controlName="prep_time" [isRequired]="true"></app-input>
+                </div>
 
-    </div>
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                  <app-input type="number" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
+                </div>
 
-    <div class="four wide field">
-
-      <div class="field ui card">
-
-        <div class="image">
-
-          <img *ngIf="recipeForm.controls.image.value" src="{{recipeForm.controls.image.value}}" />
-
-          <img *ngIf="!recipeForm.controls.image.value" src="{{defaultImage}}" />
-
-        </div>
-
-        <div class="content">
-
-          <div class="content">
-
-            <div class="meta">
-
-              <div class="field">
-
-                <label for="file" class="ui icon button">
-
-                    <i class="file icon"></i>Open Image
-
-                  </label>
-
-                <input type="file" id="file" style="display:none" (change)="getImageData($event)">
-
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                  <md-select placeholder="Course Types" formControlName="course_type" class="full-width">
+                    <md-option *ngFor="let courseType of courseTypes" [value]="courseType.type">
+                      {{courseType.type}}
+                    </md-option>
+                  </md-select>
+                  <div class="ui error message" *ngIf="isRequired && parentFormGroup.controls.course_type.errors?.required && parentFormGroup.controls.course_type.dirty">
+                    <p>This field is required.</p>
+                  </div>
+                </div>
               </div>
-
             </div>
-
-            <app-input type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
-
           </div>
 
+
+
+
+
+
+
+
+
+
         </div>
+      </md-tab>
 
-      </div>
+      <md-tab label="Ingredients">
+        <ng-template md-tab-label>
+          <md-icon>shopping_basket</md-icon>
+          <span>Ingredients</span>
+        </ng-template>
 
+        <div>
+
+
+
+          <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+              <md-select placeholder="Type" formControlName="type" class="full-width">
+                <md-option value="99">Select Type</md-option>
+                <md-option value="0">Single</md-option>
+                <md-option value="1">Multiple</md-option>
+              </md-select>
+
+
+
+              <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentsFormGroup]="recipeForm" [itemArray]="ingredients" value="Ingredients"></app-item-array>
+
+              <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArrayxx]="ingredients"></app-ingredients>
+
+
+            </div>
+          </div>
+
+
+
+        </div>
+      </md-tab>
+
+      <md-tab label="Directions">
+        <ng-template md-tab-label>
+          <md-icon>assignment</md-icon>
+          <span>Directions</span>
+        </ng-template>
+
+        <div>
+
+
+
+
+
+          <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+
+              <app-item-array [parentsFormGroup]="recipeForm" [itemArray]="directions" value="Directions"></app-item-array>
+
+
+            </div>
+          </div>
+
+
+
+        </div>
+      </md-tab>
+    </md-tab-group>
+
+
+
+
+    <button md-raised-button color="accent" [disabled]="recipeForm.invalid" class="full-width">Add Recipe</button>
+
+    <div class="ui error message" *ngIf="error">
+      <div class="header">Error</div>
+      <p *ngFor="let error of errorMessage">{{error.message}}</p>
     </div>
-
-  </div>
-
-  <div class="field">
-
-    <div class="field">
-
-      <div class="field required">
-
-        <label>Ingredients</label>
-
-      </div>
-
-      <div class="field required">
-
-        <label for="type">Type</label>
-
-        <select class="form-control" name="type" id="type" formControlName="type">
-
-            <option  value="99">Select Type</option>
-
-            <option  value="0">Single</option>
-
-            <option  value="1">Multiple</option>
-
-          </select>
-
-      </div>
-
-      <div class="field">
-
-        <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentsFormGroup]="recipeForm" [itemArray]="ingredients" value="Ingredients"></app-item-array>
-
-        <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArrayxx]="ingredients"></app-ingredients>
-
-      </div>
-
-    </div>
-
-    <div class="field required">
-
-      <label for="exampleSelect1">Directions</label>
-
-      <app-item-array [parentsFormGroup]="recipeForm" [itemArray]="directions" value="Directions"></app-item-array>
-
-    </div>
-
-  </div>
-
-  <button class="ui submit button" type="submit" [disabled]="recipeForm.invalid">Add</button>
-
-  <div class="ui error message" *ngIf="error">
-
-    <div class="header">Error</div>
-
-    <p *ngFor="let error of errorMessage">{{error.message}}</p>
-
-  </div>
-
-  <pre>{{recipeForm.value | json}}</pre>
-</form>
-
-
+  </form>
+</div>

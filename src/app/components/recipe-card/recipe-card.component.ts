@@ -5,7 +5,7 @@ import { RecipeService } from '../../services/recipe.service';
 
 @Component({
   selector: 'app-recipe-card',
-  host: { 'class': 'ui card' },
+  // host: { 'class': 'ui card' },
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.css']
 })

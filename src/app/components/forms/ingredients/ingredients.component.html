@@ -1,29 +1,24 @@
 <div [formGroup]="parentFormGroup">
-
-  <div class="ui top attached segment">
-
+  <md-card>
     <div formArrayName="ingredients">
       <div class="item" *ngFor="let ingredient of formArrayxx.controls; let i = index" [formGroupName]="i">
+        <md-card-title>
+          Ingredient {{i+1}}
+          <div fxFlex></div>
+          <md-icon (click)="delete($event, i)">delete</md-icon>
+        </md-card-title>
 
-        <div class="html ui top attached segment">
-          <div class="ui attached label">
-            Ingredient {{i+1}}
-            <i data-content="Copy code" (click)="delete($event, i)" class="remove icon"></i>
-          </div>
+        <app-input type="text" [parentFormGroup]="formArrayxx.controls[i]" labelName="For" controlName="for" [isRequired]="true"></app-input>
 
-          <div class="field">
-            <label for="exampleSelect1">For</label>
-            <input class="form-control" type="text" formControlName="for" />
-          </div>
 
-          <div class="field">
-            <label for="exampleSelect1">Ingredients</label>
-            <app-item-array [parentsFormGroup]="parentFormGroup" [itemArray]="ingredient.controls.ingredients" value="Ingredients"></app-item-array>
-          </div>
-        </div>
+          <md-card-title>
+            Ingredients
+          </md-card-title>
+
+          <app-item-array [parentsFormGroup]="parentFormGroup" [itemArray]="ingredient.controls.ingredients" value="Ingredients"></app-item-array>
+
       </div>
+      <button md-raised-button color="accent" class="full-width" (click)="add($event)">Add Ingredient</button>
     </div>
-
-    <button class="ui button" type="submit" (click)="add($event)">Add Ingredients</button>
-  </div>
+  </md-card>
 </div>

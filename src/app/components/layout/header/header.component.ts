@@ -6,11 +6,13 @@ import { RecipeService } from '../../../services/recipe.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
 export class HeaderComponent implements OnInit {
   courseTypes: any;
+  searchTerm: string = '';
+  search: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -33,10 +35,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  performSearch(searchTerm: HTMLInputElement): void {
-    if(searchTerm.value) {
-      this.router.navigate(['search', searchTerm.value]);
-      searchTerm.value = '';
+  performSearch(): void {
+    if(this.searchTerm) {
+      this.router.navigate(['search', this.searchTerm]);
+      this.searchTerm = '';
+      this.search = false;
     }
   }
 }

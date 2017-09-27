@@ -1,0 +1,14 @@
+.mat-card-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.admin {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+img {
+  cursor: pointer;
+}

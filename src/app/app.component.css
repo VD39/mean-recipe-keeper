@@ -1,3 +1,7 @@
-.ui.container {
-  padding: 100px 0;
+.app {
+  height: 100vh;
+}
+
+.main-container {
+  overflow-y: auto;
 }

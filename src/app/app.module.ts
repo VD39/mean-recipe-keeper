@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { RecipeService } from "./services/recipe.service";
@@ -27,6 +27,20 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
 import { FormService } from './services/form.service';
 import { SearchComponent } from './components/search/search.component';
 import { AdminButtonsComponent } from './components/forms/admin-buttons/admin-buttons.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+
+
+
+
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 
 
 
@@ -53,8 +67,13 @@ import { AdminButtonsComponent } from './components/forms/admin-buttons/admin-bu
     AdminButtonsComponent
   ],
   imports: [
+    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    FlexLayoutModule,
+    MaterialModule,
+    BrowserAnimationsModule,
     BrowserModule,
     HttpModule,
+    FormsModule,
     ReactiveFormsModule,
     RecipesRoutesModule
   ],
@@ -66,4 +85,5 @@ import { AdminButtonsComponent } from './components/forms/admin-buttons/admin-bu
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

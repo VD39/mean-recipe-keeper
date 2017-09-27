@@ -6,7 +6,6 @@
   margin-bottom: 25px;
 }
 
-.icon {
-  float: right;
+md-icon {
   cursor: pointer;
 }

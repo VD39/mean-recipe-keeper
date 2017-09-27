@@ -1,14 +1,23 @@
-<a class="image" [routerLink]="['/recipe', recipe._id]">
-    <img src="{{recipe.image}}">
-  </a>
+<md-card>
+  <img [routerLink]="['/recipe', recipe._id]" md-card-image src="{{recipe.image}}" alt="Photo of {{recipe.name}}">
 
-<div class="content">
-  <div class="header">{{recipe.name}}</div>
-  <div class="meta">
-    <a>{{recipe.course_type}}</a>
-  </div>
-  <div class="description">
-    {{recipe.intro | trim:100}}
-  </div>
-</div>
-<app-admin-buttons class="ui bottom attached buttons" *ngIf="authenticationService.isLoggedIn()" [id]="recipe._id"></app-admin-buttons>
+  <md-card-title>
+    <span>{{recipe.name}}</span>
+    <span fxFlex></span>
+
+    <button class="admin" md-icon-button [mdMenuTriggerFor]="accountMenu" *ngIf="authenticationService.isLoggedIn()">
+      <md-icon>more_vert</md-icon>
+    </button>
+    <md-menu #accountMenu="mdMenu">
+      <app-admin-buttons [id]="recipe._id"></app-admin-buttons>
+    </md-menu>
+  </md-card-title>
+
+  <md-card-subtitle>
+    <span>{{recipe.course_type}}</span>
+  </md-card-subtitle>
+
+  <md-card-content>
+    <p>{{recipe.intro | trim:100}}</p>
+  </md-card-content>
+</md-card>
