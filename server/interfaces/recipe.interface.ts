@@ -9,10 +9,17 @@ export interface IRecipe {
   total_time: number;
   course_type: string;
   date_added: Date;
-  ingredients: (string | {
-    for: string;
-    ingredient: string[];
-  })[],
-  directions: string[]
-};
+  ingredients: (IForIngredients | ISingleIngredients)[];
+  directions: string[];
+  _id?: string;
+}
 
+interface IForIngredients {
+  for: string;
+  ingredients: ISingleIngredients[];
+}
+
+interface ISingleIngredients {
+  quantity: string;
+  ingredient: string;
+}
