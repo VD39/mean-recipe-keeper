@@ -1,52 +1,64 @@
-import * as mongoose from "mongoose";
+// Import dependencies
+import { Schema, Document, Model, model } from "mongoose";
 
-// create Recipe Schema & model
-const RecipeSchema = new mongoose.Schema({
+// Import interface
+import { IRecipe } from "../interfaces/recipe.interface";
+
+// Create recipe schema
+const RecipeSchema: Schema = new Schema({
   type: {
     type: Number,
-    required: [true, 'Number field is required']
+    required: [true, 'Number field is required.']
   },
   name: {
     type: String,
-    required: [true, 'Name field is required']
+    required: [true, 'Name field is required.']
   },
   intro: {
     type: String
   },
   image: {
     type: String,
-    required: [true, 'Name field is required']
+    required: [true, 'Image field is required.']
   },
   serves: {
     type: String,
-    required: [true, 'Name field is required']
+    required: [true, 'Serves field is required.']
   },
   prep_time: {
     type: Number,
-    required: [true, 'Name field is required']
+    required: [true, 'Prep time field is required.']
   },
   cook_time: {
     type: Number,
-    required: [true, 'Name field is required']
+    required: [true, 'Cook time field is required.']
   },
   total_time: {
     type: Number
   },
   course_type: {
     type: String,
-    required: [true, 'Name field is required']
+    required: [true, 'Course type field is required.']
   },
   date_added: {
     type: Date,
     default: Date.now
   },
-  ingredients: [],
-  directions: []
+  ingredients: {
+      type: Schema.Types.Mixed,
+      required: [true, 'Ingredient field is required.']
+  },
+  directions: {
+    type: [],
+    required: [true, 'Directions field is required.']
+  }
 });
 
-const Recipe = mongoose.model('Recipe', RecipeSchema);
 
+interface IRecipeModel extends IRecipe, Document { }
 
-export {
-  Recipe
-};
+// Course type model
+const Recipe: Model = model<IRecipeModel>('Recipe', RecipeSchema);
+
+// Export
+export { Recipe };

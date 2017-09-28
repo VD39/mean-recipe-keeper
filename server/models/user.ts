@@ -1,8 +1,12 @@
-import * as mongoose from "mongoose";
-import * as bcrypt from 'bcrypt';
+// Import dependencies
+import { Schema, Document, Model, model } from "mongoose";
+import { compareSync } from 'bcrypt';
 
-// create Recipe Schema & model
-const UserSchema = new mongoose.Schema({
+// Import interface
+import { IUser } from "../interfaces/user.interface";
+
+// Create user schema
+const UserSchema: Schema = new Schema({
   email: {
     type: String,
     required: true,
@@ -16,15 +20,16 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Methods to compare password to encrypted password upon login
-UserSchema.methods.comparePassword = (bodyPassword, userPassword) => {
-  return bcrypt.compareSync(bodyPassword, userPassword, (error, isMatch) => {
-    if (error) {
-      return error;
-    }
-    return isMatch;
-  });
+UserSchema.methods.comparePassword = (bodyPassword: string, userPassword: string): boolean => {
+  return compareSync(bodyPassword, userPassword);
 };
 
-const User = mongoose.model('User', UserSchema);
+interface IUserModel extends IUser, Document {
+  comparePassword(): string;
+}
 
+// Course type model
+const User: Model = model<IUserModel>('User', UserSchema);
+
+// Export
 export { User };
