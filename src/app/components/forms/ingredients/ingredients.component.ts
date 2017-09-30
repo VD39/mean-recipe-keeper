@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+// Import dependencies
+import { Component, Input } from '@angular/core';
+import { FormArray, FormGroup, FormControl } from '@angular/forms';
+
+// Import services
 import { FormService } from '../../../services/form.service';
 
 @Component({
@@ -7,36 +10,35 @@ import { FormService } from '../../../services/form.service';
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.css']
 })
-export class IngredientsComponent implements OnInit {
+
+export class IngredientsComponent {
+  @Input()
+  public parentFormGroup: FormGroup; // Parents form group
 
   @Input()
-  formArrayxx: FormArray;
-
-  @Input()
-  parentFormGroup: FormGroup;
+  public formArrayxx: FormArray; // Form array
 
   constructor(
-    private formService: FormService,
-    private formBuilder: FormBuilder
+    private formService: FormService
   ) { }
 
-  ngOnInit() { }
-
-  initIngrediants(): FormGroup {
-    return this.formBuilder.group({
-      for: ['', Validators.required],
-      ingredients: new FormArray([])
-    });
-  }
-
+  /**
+   * Adds ingredient to form array.
+   * @param event {Event} Event
+   */
   add(event: Event): void {
-    event.preventDefault();
-    this.formArrayxx = this.formService.populateIngredients(this.formArrayxx);
+    event.preventDefault(); // Prevent default
+    this.formArrayxx = this.formService.populateIngredients(this.formArrayxx); // Add to form array
   }
 
+  /**
+   * Deletes ingredient to form array.
+   * @param event {Event} Event
+   * @param index {number} Index of the ingredient
+   */
   delete(event: Event, index: number): void {
-    event.preventDefault();
-    const formControl = <FormArray>this.formArrayxx;
-    formControl.removeAt(index);
+    event.preventDefault(); // Prevent default
+    const formArray = <FormArray>this.formArrayxx; // Set form control
+    formArray.removeAt(index); // Remove item from array
   }
 }

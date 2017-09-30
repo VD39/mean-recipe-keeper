@@ -1,5 +1,5 @@
 // Import dependencies
-import { Schema, Document, Model, model } from "mongoose";
+import { Schema, Document, Model, model } from 'mongoose';
 
 // Import interface
 import { ICourseType } from '../interfaces/course-type.interface';

@@ -6,8 +6,12 @@ md-icon {
   margin: auto;
 }
 
-p.mat-line {
+h3.mat-line {
   font-size: 20px !important;
+}
+
+p.mat-line {
+  font-size: 18px !important;
 }
 
 h2.mat-subheader {

@@ -1,4 +1,7 @@
+// Import dependencies
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+// Import services
 import { RecipeService } from '../../../services/recipe.service';
 
 @Component({
@@ -6,13 +9,12 @@ import { RecipeService } from '../../../services/recipe.service';
   templateUrl: './admin-buttons.component.html',
   styleUrls: ['./admin-buttons.component.css']
 })
-export class AdminButtonsComponent {
 
+export class AdminButtonsComponent {
   constructor(
-    private recipeService: RecipeService
+    public recipeService: RecipeService
   ) { }
 
   @Input()
-  id: string;
-
+  public id: string;
 }

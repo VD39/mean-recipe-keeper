@@ -1,24 +1,25 @@
+// Import dependencies
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IRecipe } from '../../models/recipe.interface';
+
+// Import services
 import { AuthenticationService } from '../../services/authentication.service';
 import { RecipeService } from '../../services/recipe.service';
 
+// Import interfaces
+import { IRecipe } from '../../interfaces';
+
 @Component({
   selector: 'app-recipe-card',
-  // host: { 'class': 'ui card' },
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.css']
 })
-export class RecipeCardComponent {
 
+export class RecipeCardComponent {
   constructor(
     private recipeService: RecipeService,
-    private authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService
   ) { }
 
   @Input()
-  recipe: IRecipe;
-
-  @Output()
-  delete = new EventEmitter();
+  public recipe: IRecipe; // Recipe
 }

@@ -1,5 +1,5 @@
+// Import dependencies
 import { Component } from '@angular/core';
-import { RecipeService } from "./services/recipe.service";
 
 @Component({
   selector: 'app-root',
@@ -7,12 +7,4 @@ import { RecipeService } from "./services/recipe.service";
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  recipes: any;
-  constructor(private recipeService: RecipeService) {
-    // RecipeService.getRecipes().subscribe(data => {
-    //   console.log(data);
-    //   this.recipes = data;
-    // });
-  }
-}
+export class AppComponent { }

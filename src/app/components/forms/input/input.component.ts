@@ -1,25 +1,26 @@
+// Import dependencies
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  host: {'class': 'field'},
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css']
 })
+
 export class InputComponent {
   @Input()
-  parentFormGroup: FormGroup;
+  public parentFormGroup: FormGroup; // Parent form group
 
   @Input()
-  isRequired: any;
+  public isRequired: any; // If input is required
 
   @Input()
-  controlName: any;
+  public controlName: any; // Control name for input
 
   @Input()
-  labelName: any;
+  public labelName: any; // The input lable name
 
   @Input()
-  type: any;
+  public type: any; // Input type
 }

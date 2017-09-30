@@ -2,7 +2,7 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.15/css/perfect-scrollbar.min.css');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import '~@angular/material/prebuilt-themes/purple-green.css';
 html,
 body {
   height: 100%;
@@ -21,7 +21,7 @@ body {
 }
 
 .mat-card {
-  margin: .333333rem;
+  margin: 8px;
   overflow: hidden;
 }
 
@@ -41,5 +41,6 @@ body {
   padding: 0 !important;
   img {
     width: 100%;
+    margin: auto;
   }
 }

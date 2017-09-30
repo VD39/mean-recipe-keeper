@@ -1,5 +1,5 @@
 {
-  "name": "recipes",
+  "name": "mean-recipe-keeper",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -36,7 +36,6 @@
     "jsonwebtoken": "^7.4.3",
     "mongoose": "^4.10.8",
     "rxjs": "^5.4.2",
-    "semantic-ui-css": "^2.2.12",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

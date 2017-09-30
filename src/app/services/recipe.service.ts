@@ -1,95 +1,117 @@
+// Import dependencies
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
-import { IResponse } from "../models/response.interface";
-import { IRecipe } from '../models/recipe.interface';
-import { Router } from '@angular/router';
+import 'rxjs/add/operator/catch';
+import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+// Import services
+import { HandleRequestService } from './handle-request.service';
+
+// Import interfaces
+import { IResponse, IRecipe } from '../interfaces';
 
 @Injectable()
-export class RecipeService {
-  public recipeSubject = new Subject<any>();
-  public event = this.recipeSubject.asObservable();
+export class RecipeService extends HandleRequestService {
+  public recipeSubject: Subject<any> = new Subject<any>();
+  public event: Observable<any> = this.recipeSubject.asObservable();
 
   constructor(
     private http: Http,
     private router: Router
-  ) { }
+  ) {
+    super();
+  }
 
-  getRecipes(fields: string, limit: number = 0, coursetype: string = ''): Observable<IResponse> {
+  /**
+   * Gets the recipes based on paramaters.
+   * @param fields {string} Fields to return from API
+   * @param limit {number} Limit of return results
+   * @param coursetype {string} Course types
+   */
+  public getRecipes(fields: string, limit: number = 0, coursetype: string = ''): Observable<IResponse> {
     return this.http
       .get(`./api/v1/recipes?fields=${fields}&limit=${limit}&coursetype=${coursetype}`)
-      .map((response) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  getRecipe(id: string): Observable<IResponse> {
+  /**
+   * Gets the recipe via ID.
+   * @param id {string} Id of the recipe
+   */
+  public getRecipe(id: string): Observable<IResponse> {
     return this.http
       .get(`./api/v1/recipe/${id}`)
-      .map((response) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  addRecipe(recipe: IRecipe): Observable<IResponse> {
+  /**
+   * Add recipe to the database.
+   * @param recipe {IRecipe} Recipe object
+   */
+  public addRecipe(recipe: IRecipe): Observable<IResponse> {
     return this.http
       .post('./api/v1/recipes', recipe)
-      .map((response: any) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });;
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  editRecipe(id: string, recipe: IRecipe): Observable<IResponse> {
+  /**
+   * Edits the recipe.
+   * @param id {string} Id of the recipe
+   * @param recipe {IRecipe} Recipe object
+   */
+  public editRecipe(id: string, recipe: IRecipe): Observable<IResponse> {
     return this.http
       .put(`./api/v1/recipe/${id}`, recipe)
-      .map((response: any) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });;
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  deleteRecipe(id: string): void {
+  /**
+   * Deletes the recipe from the database.
+   * @param id {string} Id of the recipe
+   */
+  public deleteRecipe(id: string): void {
+    // TODO: Change this dirty hack to use material design alert
     if (window.confirm('Are you sure')) {
       this.http
         .delete(`./api/v1/recipe/${id}`)
-        .map((response: any) => response.json())
+        .map(this.extractData)
         .subscribe(
-          (data) => {
-            this.recipeSubject.next({ id });
+          (data: IResponse) => {
+            this.recipeSubject.next({ id }); // Send Id
           },
-          (error) => {
-            console.log(error);
+          (error: IResponse | any) => {
+            console.log(error); // Log error
           }
-        )
+        );
     }
   }
 
-  getCourseTypes(): Observable<IResponse> {
+  /**
+   * Gets the course types.
+   */
+  public getCourseTypes(): Observable<IResponse> {
     return this.http
       .get('./api/v1/coursetypes')
-      .map((response: any) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });;
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  searchRecipes(searchTerm: string, fields: string = ''): Observable<IResponse> {
+  /**
+   * Search for recipe.
+   * @param searchTerm {string} Search term
+   * @param fields {string} Fields to return
+   */
+  public searchRecipes(searchTerm: string, fields: string = ''): Observable<IResponse> {
     return this.http
       .get(`./api/v1/recipes?search=${searchTerm}&fields=${fields}`)
-      .map((response) => response.json())
-      .catch((err: Response) => {
-        const details = err.json();
-        return Observable.throw(details);
-      });
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 }

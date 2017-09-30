@@ -1,7 +1,7 @@
 <div [formGroup]="parentFormGroup">
   <md-input-container class="full-width">
-    <input *ngIf="type != 'textarea'" mdInput placeholder="{{labelName}}" type="{{type}}" [formControlName]="controlName"/>
-    <textarea *ngIf="type == 'textarea'" mdInput placeholder="{{labelName}}" [formControlName]="controlName"></textarea>
+    <input *ngIf="type !== 'textarea'" mdInput placeholder="{{labelName}}" type="{{type}}" [formControlName]="controlName"/>
+    <textarea *ngIf="type === 'textarea'" mdInput placeholder="{{labelName}}" [formControlName]="controlName"></textarea>
   </md-input-container>
 
   <md-error *ngIf="isRequired && parentFormGroup.controls[controlName].errors?.required && parentFormGroup.controls[controlName].dirty">

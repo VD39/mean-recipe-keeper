@@ -1,20 +1,22 @@
-<div class="login-form">
-  <md-toolbar>
-    <md-icon>account_circle</md-icon>
-    <span>Login</span>
-  </md-toolbar>
-  <md-card>
-    <form [formGroup]="loginForm" (submit)="login()" novalidate>
-      <app-input type="text" [parentFormGroup]="loginForm" labelName="Email" controlName="email" [isRequired]="true"></app-input>
+<md-toolbar>
+  <md-icon>account_circle</md-icon>
+  <span>Login</span>
+</md-toolbar>
 
-      <app-input type="password" [parentFormGroup]="loginForm" labelName="Password" controlName="password" [isRequired]="true"></app-input>
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+  <div class="login-form" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="75" fxFlex.gt-md="50">
+    <md-card>
+      <form [formGroup]="loginForm" (submit)="login()" novalidate>
+        <app-input type="text" [parentFormGroup]="loginForm" labelName="Email" controlName="email" [isRequired]="true"></app-input>
+        <app-input type="password" [parentFormGroup]="loginForm" labelName="Password" controlName="password" [isRequired]="true"></app-input>
 
-      <button md-raised-button color="accent" [disabled]="loginForm.invalid || processing">Submit</button>
+        <button class="full-width" md-raised-button color="accent" [disabled]="loginForm.invalid || processing">Login</button>
 
-      <md-error *ngIf="error">
-        <h4>Error</h4>
-        <p>{{errorMessage}}</p>
-      </md-error>
-    </form>
-  </md-card>
+        <md-error *ngIf="error">
+          <h4>Error</h4>
+          <p>{{errorMessage}}</p>
+        </md-error>
+      </form>
+    </md-card>
+  </div>
 </div>

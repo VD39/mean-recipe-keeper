@@ -1,15 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input
-} from '@angular/core';
-import {
-  FormGroup,
-  FormArray,
-  FormControl,
-  FormBuilder,
-  Validators
-} from "@angular/forms";
+// Import dependencies
+import { Component, Input } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+
+// Import services
 import { FormService } from '../../../services/form.service';
 
 @Component({
@@ -17,31 +10,38 @@ import { FormService } from '../../../services/form.service';
   templateUrl: './item-array.component.html',
   styleUrls: ['./item-array.component.css']
 })
-export class ItemArrayComponent implements OnInit {
+
+export class ItemArrayComponent {
   @Input()
-  itemArray: FormArray;
+  public parentsFormGroup: FormGroup; // Parents form group
 
   @Input()
-  parentsFormGroup: FormGroup;
+  public itemArray: FormArray; // Form array
 
   @Input()
-  value: string;
+  public value: string; // Field value
 
   constructor(
-    private formService: FormService,
-    private formBuilder: FormBuilder
+    private formService: FormService
   ) { }
 
-  ngOnInit() { }
-
+  /**
+   * Adds item to form array.
+   * @param event {Event} Event
+   */
   add(event: Event): void {
-    event.preventDefault();
-    this.itemArray = this.formService.populateArray(this.itemArray, this.value);
+    event.preventDefault(); // Prevent default
+    this.itemArray = this.formService.populateArray(this.itemArray, this.value); // Add to form array
   }
 
+  /**
+   * Deletes item to form array.
+   * @param event {Event} Event
+   * @param index {number} Index of the ingredient
+   */
   delete(event: Event, index: number): void {
-    event.preventDefault();
-    const formControl = <FormArray>this.itemArray;
-    formControl.removeAt(index);
+    event.preventDefault(); // Prevent default
+    const formArray = <FormArray>this.itemArray; // Set form control
+    formArray.removeAt(index); // Remove item from array
   }
 }

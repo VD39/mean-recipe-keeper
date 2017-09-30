@@ -1,3 +1,4 @@
+// Import dependencies
 import { Component } from '@angular/core';
 
 @Component({

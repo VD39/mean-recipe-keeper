@@ -1,8 +1,8 @@
 // Import dependencies
-import { Schema, Document, Model, model } from "mongoose";
+import { Schema, Document, Model, model } from 'mongoose';
 
 // Import interface
-import { IRecipe } from "../interfaces/recipe.interface";
+import { IRecipe } from '../interfaces/recipe.interface';
 
 // Create recipe schema
 const RecipeSchema: Schema = new Schema({

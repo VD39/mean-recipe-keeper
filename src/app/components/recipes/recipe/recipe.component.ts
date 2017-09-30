@@ -1,61 +1,74 @@
+// Import dependencies
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from "../../../services/recipe.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { IRecipe } from "../../../models/recipe.interface";
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, Router } from '@angular/router';
+
+// Import services
+import { RecipeService } from '../../../services/recipe.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+
+// Import interfaces
+import { IResponse, IRecipe } from '../../../interfaces';
 
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.scss']
+  styleUrls: ['./recipe.component.css']
 })
+
 export class RecipeComponent implements OnInit, OnDestroy {
-  loading: boolean = true;
-  noResult: boolean = false;
-  recipe: IRecipe | IRecipe[];
-  sub: Subscription;
+  private subscription: Subscription; // Subscription
+  public recipe: IRecipe; // Recipe
+  public loading: boolean = true; // Loading status set to true
+  public noResult: boolean = false; // Loading status set to false
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private recipeService: RecipeService,
-    private authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService
   ) {
-    this.recipeService.event.subscribe((data) => {
-      this.router.navigate(['/']);
+    // Subscribed to event
+    this.recipeService.event.subscribe((data: any) => {
+      this.router.navigate(['/']); // Navigate to the home page
     });
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.recipeService.getRecipe(params['id']).subscribe(
-        (data) => {
-          this.loading = false;
+    // Check route if param is present
+    this.subscription = this.route.params.subscribe((params) => {
+      // Fetch recipe based on the Id
+      const subscription = this.recipeService.getRecipe(params['id']).subscribe(
+        (data: IResponse) => {
+          this.loading = false; // Set loading to false
+          // Check if status was success and count is greater than 0
           if (data.status === 'success' && data.meta.count > 0) {
-            this.recipe = data.data;
-            this.noResult = false;
+            this.recipe = data.data; // Set recipes to data array
+            this.noResult = false; // Set no results to false
           } else {
-            this.noResult = true;
+            this.noResult = true; // Set no results to true
           }
         },
-        (error) => {
-          this.loading = false;
-          this.noResult = true;
-          console.log(error);
+        (error: IResponse | any) => {
+          this.loading = false; // Set loading to false
+          this.noResult = true; // Set no results to true
         });
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe(); // Unsubscribe from subscription
   }
 
-  convertMinsToHrsMins(minutes) {
-    let h: any = Math.floor(minutes / 60);
-    let m: any = minutes % 60;
-    h = h < 10 ? `0${h}` : h;
-    m = m < 10 ? `0${m}` : m;
-    return `${h}:${m}`;
+  /**
+   * Converts minutes to hour and minutes.
+   * @param minutes {number} Minutes to convert
+   */
+  convertMinsToHrsMins(minutes: number): string {
+    let h: any = Math.floor(minutes / 60); // Set hours
+    let m: any = minutes % 60; // Set minutes
+    h = h < 10 ? `0${h}` : h; // Set hours
+    m = m < 10 ? `0${m}` : m; // Set minutes
+    return `${h}:${m}`; // Return hour and minutes
   }
 }

@@ -1,18 +1,14 @@
+// Import dependencies
 import { NgModule } from '@angular/core';
-
 import {
   MatCardModule,
   MatGridListModule,
   MatButtonModule,
   MatCheckboxModule,
   MatTabsModule,
-  MatTooltipModule,
-  MatAutocompleteModule,
   MatInputModule,
   MatSelectModule,
-  MatSliderModule,
   MatMenuModule,
-  MatSidenavModule,
   MatProgressBarModule,
   MatDialogModule,
   MatSnackBarModule,
@@ -22,7 +18,8 @@ import {
   MatListModule
 } from '@angular/material';
 
-export const MATERIAL_IMPORTS = [
+// Material imports for material design
+const MATERIAL_IMPORTS = [
   MatListModule,
   MdMenuModule,
   MatCardModule,
@@ -30,19 +27,14 @@ export const MATERIAL_IMPORTS = [
   MatButtonModule,
   MatCheckboxModule,
   MatTabsModule,
-  MatTooltipModule,
-  MatAutocompleteModule,
   MatInputModule,
   MatSelectModule,
-  MatSliderModule,
   MatMenuModule,
-  MatSidenavModule,
   MatProgressBarModule,
   MatDialogModule,
   MatSnackBarModule,
   MatToolbarModule,
   MatIconModule
-
 ];
 
 @NgModule({

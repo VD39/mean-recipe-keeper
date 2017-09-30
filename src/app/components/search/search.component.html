@@ -1,13 +1,15 @@
 <section *ngIf="loading">
-    <md-progress-bar mode="indeterminate"></md-progress-bar>
-  </section>
+  <md-progress-bar color="accent" mode="indeterminate"></md-progress-bar>
+</section>
 
-  <div *ngIf="!loading && noResult">
+<div *ngIf="!loading && noResult">
+  <md-card>
     <p>No results were found.</p>
-  </div>
+  </md-card>
+</div>
 
-  <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="!loading && !noResult">
-    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" *ngFor="let recipe of recipes">
-      <app-recipe-card [recipe]="recipe"></app-recipe-card>
-    </div>
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="!loading && !noResult">
+  <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" fxFlex.gt-lg="20" *ngFor="let recipe of recipes">
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
   </div>
+</div>

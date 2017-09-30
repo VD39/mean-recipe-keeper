@@ -1,9 +1,9 @@
 // Import dependencies
-import { Schema, Document, Model, model } from "mongoose";
+import { Schema, Document, Model, model } from 'mongoose';
 import { compareSync } from 'bcrypt';
 
 // Import interface
-import { IUser } from "../interfaces/user.interface";
+import { IUser } from '../interfaces/user.interface';
 
 // Create user schema
 const UserSchema: Schema = new Schema({

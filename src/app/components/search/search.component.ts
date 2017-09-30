@@ -1,53 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+// Import dependencies
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+
+// Import services
 import { RecipeService } from '../../services/recipe.service';
-import { IRecipe } from '../../models/recipe.interface';
+
+// Import interfaces
+import { IResponse, IRecipe } from '../../interfaces';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
-  loading: boolean = true;
-  noResult: boolean = false;
-  recipes: IRecipe[];
-  sub: Subscription;
+
+export class SearchComponent implements OnInit, OnDestroy {
+  private subscription: Subscription; // Subscription
+  public recipes: IRecipe[]; // Recipes
+  public loading: boolean = true; // Loading status set to true
+  public noResult: boolean = false; // Loading status set to false
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private recipeService: RecipeService
-  ) { }
+  ) {
+    // Subscribed to event
+    this.recipeService.event.subscribe((data: any) => {
+      this.recipes = this.recipes.filter((recipe) => recipe._id !== data.id); // Remove delete item
+    });
+  }
 
   ngOnInit() {
-    this.sub = this.route
-      .params
-      .subscribe(params => {
-        const searchTerm = params['value'];
-        if (searchTerm) {
-          this.recipeService.searchRecipes(searchTerm, '_id,name,image,intro,course_type').subscribe(
-            (data) => {
-              this.loading = false;
-              if (data.status === 'success' && data.meta.count > 0) {
-                this.recipes = data.data;
-                this.noResult = false;
-              } else {
-                this.noResult = true;
-              }
-            },
-            (error) => {
-              this.loading = false;
-              this.noResult = true;
-              console.log(error);
-            });
-        }
-      });
+    // Check route if param is present
+    this.subscription = this.route.params.subscribe((params) => {
+      const searchTerm = params['value']; // Search term
+      // Check if search term has value
+      if (searchTerm) {
+        // Fetch recipes based on the search term
+        const subscription = this.recipeService.searchRecipes(searchTerm, '_id,name,image,intro,course_type').subscribe(
+          (data: IResponse) => {
+            this.loading = false; // Set loading to false
+            // Check if status was success and count is greater than 0
+            if (data.status === 'success' && data.meta.count > 0) {
+              this.recipes = data.data; // Set recipes to data array
+              this.noResult = false; // Set no results to false
+            } else {
+              this.noResult = true; // Set no results to true
+            }
+          },
+          (error: IResponse | any) => {
+            this.loading = false; // Set loading to false
+            this.noResult = true; // Set no results to true
+          });
+        // this.subscription.add(subscription); // Add subscription
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe(); // Unsubscribe from subscription
   }
-
 }

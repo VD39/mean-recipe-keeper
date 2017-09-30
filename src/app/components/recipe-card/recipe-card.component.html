@@ -4,13 +4,7 @@
   <md-card-title>
     <span>{{recipe.name}}</span>
     <span fxFlex></span>
-
-    <button class="admin" md-icon-button [mdMenuTriggerFor]="accountMenu" *ngIf="authenticationService.isLoggedIn()">
-      <md-icon>more_vert</md-icon>
-    </button>
-    <md-menu #accountMenu="mdMenu">
-      <app-admin-buttons [id]="recipe._id"></app-admin-buttons>
-    </md-menu>
+    <app-admin-buttons class="admin" [id]="recipe._id" *ngIf="authenticationService.isLoggedIn()"></app-admin-buttons>
   </md-card-title>
 
   <md-card-subtitle>

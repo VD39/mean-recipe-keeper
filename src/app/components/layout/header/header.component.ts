@@ -1,45 +1,59 @@
+// Import dependencies
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from "../../../services/authentication.service";
+
+// Import services
+import { AuthenticationService } from '../../../services/authentication.service';
 import { RecipeService } from '../../../services/recipe.service';
+
+// Import interfaces
+import { ICourseType, IResponse } from '../../../interfaces';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.css']
 })
 
 export class HeaderComponent implements OnInit {
-  courseTypes: any;
-  searchTerm: string = '';
-  search: boolean = false;
+  public courseTypes: ICourseType[]; // Course types
+  public searchTerm: string = ''; // Search term
+  public search: boolean = false; // If search should be visible
 
   constructor(
     private recipeService: RecipeService,
-    private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
+    // Get course types
     this.recipeService.getCourseTypes().subscribe(
-      (data) => {
-        this.courseTypes = data.data;
+      (data: IResponse) => {
+        this.courseTypes = data.data; // Set course types
       },
-      (error) => {
-        this.courseTypes = [];
+      (error: IResponse | any) => {
+        this.courseTypes = []; // Set course types to empty
       });
   }
 
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/']);
+  /**
+   * Logs the user out.
+   */
+  logout(): void {
+    this.authenticationService.logout(); // Log user out
+    this.router.navigate(['/']); // Navigate to home page
   }
 
+  /**
+   * Perform the search.
+   */
   performSearch(): void {
-    if(this.searchTerm) {
-      this.router.navigate(['search', this.searchTerm]);
-      this.searchTerm = '';
-      this.search = false;
+    // Check if search term is set
+    if (this.searchTerm) {
+      this.router.navigate(['search', this.searchTerm]); // Navigate to search page with search term
+      this.searchTerm = ''; // Reset search term
+      this.search = false; // Set search to false
     }
   }
 }

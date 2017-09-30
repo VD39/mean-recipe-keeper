@@ -1,18 +1,21 @@
-import { RouterModule, Routes } from '@angular/router';
+// Import dependencies
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from "../guards/auth-guard.service";
+// Import services
+import { AuthGuard } from '../guards/auth-guard.service';
 
-import { LoginComponent } from "../components/login/login.component";
-import { PageNotFoundComponent } from "../components/page-not-found/page-not-found.component";
-import { RecipesComponent } from "../components/recipes/recipes/recipes.component";
-import { RecipeComponent } from "../components/recipes/recipe/recipe.component";
-import { AdminComponent } from "../components/admin/admin.component";
-import { RecipeFormComponent } from '../components/forms/recipe-form/recipe-form.component';
-import { CourseTypeComponent } from '../components/course-type/course-type.component';
+// Import components
+import { LoginComponent } from '../components/login/login.component';
 import { SearchComponent } from '../components/search/search.component';
+import { RecipeComponent } from '../components/recipes/recipe/recipe.component';
+import { RecipesComponent } from '../components/recipes/recipes/recipes.component';
+import { CourseTypeComponent } from '../components/course-type/course-type.component';
+import { RecipeFormComponent } from '../components/forms/recipe-form/recipe-form.component';
+import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
 
-const recipesRoutes: Routes = [
+// Routes for the site
+const ROUTES: Routes = [
   {
     path: '',
     component: RecipesComponent
@@ -28,13 +31,6 @@ const recipesRoutes: Routes = [
   {
     path: 'search/:value',
     component: SearchComponent
-  },
-  {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [
-      AuthGuard
-    ]
   },
   {
     path: 'admin/recipes',
@@ -59,7 +55,7 @@ const recipesRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginComponent
   },
   {
     path: '**',
@@ -69,11 +65,11 @@ const recipesRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(recipesRoutes)
+    RouterModule.forRoot(ROUTES)
   ],
   exports: [
     RouterModule
   ]
 })
 
-export class RecipesRoutesModule { }
+export class RoutesModule { }

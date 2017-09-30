@@ -1,26 +1,23 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormArray, FormControl, FormBuilder } from "@angular/forms";
+// Import dependencies
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit {
+
+export class ItemComponent {
   @Input()
-  item: FormGroup;
+  public item: FormGroup; // Parent form group
 
   @Input()
-  index: number;
+  public index: number; // Index for the input
 
   @Input()
-  value: string;
+  public value: string; // Value for the input
 
   @Output()
-  delete = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit() { }
-
+  public delete = new EventEmitter(); // Event emitter to delete from array
 }
