@@ -1,0 +1,10 @@
+<div [formGroup]="parentFormGroup" class="margin">
+  <md-input-container class="full-width">
+    <input *ngIf="type !== 'textarea'" mdInput placeholder="{{labelName}}" type="{{type}}" [formControlName]="controlName"/>
+    <textarea *ngIf="type === 'textarea'" mdInput placeholder="{{labelName}}" [formControlName]="controlName"></textarea>
+  </md-input-container>
+
+  <md-error *ngIf="isRequired && parentFormGroup.controls[controlName].errors?.required && parentFormGroup.controls[controlName].dirty">
+    <p>This field is required.</p>
+  </md-error>
+</div>

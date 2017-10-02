@@ -1,0 +1,121 @@
+<section *ngIf="loading">
+  <md-progress-bar color="accent" mode="indeterminate"></md-progress-bar>
+</section>
+
+<div *ngIf="!loading && noResult">
+  <md-card>
+    <p>No results were found.</p>
+  </md-card>
+</div>
+
+<div class="recipe" *ngIf="!loading && !noResult">
+  <md-toolbar>
+    <h1 class="name">{{recipe.name}}</h1>
+    <div fxFlex></div>
+    <app-admin-buttons class="admin" [id]="recipe._id" *ngIf="authenticationService.isLoggedIn()"></app-admin-buttons>
+  </md-toolbar>
+
+  <md-tab-group>
+    <md-tab label="Overview">
+      <ng-template md-tab-label>
+        <md-icon>restaurant</md-icon>
+        <span>Overview</span>
+      </ng-template>
+
+      <div>
+        <md-card>
+          <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+            <div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="40">
+
+              <md-card class="card-img">
+                <img md-card-image src="{{recipe.image}}" alt="Photo of {{recipe.name}}">
+              </md-card>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60">
+              <md-list>
+                <md-list-item>
+                  <p> {{recipe.intro}} </p>
+                </md-list-item>
+
+                <md-list-item>
+                  <md-icon md-list-icon>restaurant_menu</md-icon>
+                  <h3 md-line> {{recipe.course_type}} </h3>
+                </md-list-item>
+
+                <md-list-item>
+                  <md-icon md-list-icon>room_service</md-icon>
+                  <h3 md-line>Serves</h3>
+                  <p md-line> {{recipe.serves}} </p>
+                </md-list-item>
+
+                <md-list-item>
+                  <md-icon md-list-icon>timer</md-icon>
+                  <h3 md-line>Prep Time</h3>
+                  <p md-line> {{convertMinsToHrsMins(recipe.prep_time)}} </p>
+                </md-list-item>
+
+                <md-list-item>
+                  <md-icon md-list-icon>timer</md-icon>
+                  <h3 md-line>Cook Time</h3>
+                  <p md-line> {{convertMinsToHrsMins(recipe.cook_time)}} </p>
+                </md-list-item>
+
+                <md-list-item>
+                  <md-icon md-list-icon>timer</md-icon>
+                  <h3 md-line>Total Time</h3>
+                  <p md-line> {{convertMinsToHrsMins(recipe.total_time)}} </p>
+                </md-list-item>
+              </md-list>
+            </div>
+          </div>
+        </md-card>
+      </div>
+    </md-tab>
+
+    <md-tab label="Ingredients">
+      <ng-template md-tab-label>
+        <md-icon>shopping_basket</md-icon>
+        <span>Ingredients</span>
+      </ng-template>
+
+      <div *ngIf="recipe.type === 0">
+        <md-card>
+          <md-list>
+            <md-list-item class="auto" *ngFor="let ingredient of recipe.ingredients; let i = index">
+              <p>{{ingredient.quantity}} of {{ingredient.ingredient}}</p>
+            </md-list-item>
+          </md-list>
+        </md-card>
+      </div>
+
+      <div *ngIf="recipe.type === 1">
+        <md-card>
+          <md-list *ngFor="let ingredient of recipe.ingredients; let i = index">
+            <h2 md-subheader>{{ingredient.for}}</h2>
+            <md-list-item class="auto" *ngFor="let iingredient of ingredient.ingredients; let i = index">
+              <p> {{iingredient.quantity}} of {{iingredient.ingredient}} </p>
+            </md-list-item>
+          </md-list>
+        </md-card>
+      </div>
+    </md-tab>
+
+    <md-tab label="Directions">
+      <ng-template md-tab-label>
+        <md-icon>assignment</md-icon>
+        <span>Directions</span>
+      </ng-template>
+
+      <div>
+        <md-card>
+          <md-list>
+            <md-list-item class="auto" *ngFor="let step of recipe.directions; let i = index">
+              <p> <span class="step">{{i + 1}}</span> - {{step}} </p>
+            </md-list-item>
+          </md-list>
+        </md-card>
+      </div>
+    </md-tab>
+  </md-tab-group>
+</div>

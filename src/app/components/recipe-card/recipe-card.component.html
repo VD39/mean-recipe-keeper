@@ -1,0 +1,17 @@
+<md-card class="margin-lr">
+  <img [routerLink]="['/recipe', recipe._id]" md-card-image src="./assets/images/{{recipe.image}}" alt="Photo of {{recipe.name}}">
+
+  <md-card-title>
+    <span>{{recipe.name}}</span>
+    <span fxFlex></span>
+    <app-admin-buttons class="admin" [id]="recipe._id" *ngIf="authenticationService.isLoggedIn()"></app-admin-buttons>
+  </md-card-title>
+
+  <md-card-subtitle>
+    <span>{{recipe.course_type}}</span>
+  </md-card-subtitle>
+
+  <md-card-content>
+    <p>{{recipe.intro | trim:80}}</p>
+  </md-card-content>
+</md-card>

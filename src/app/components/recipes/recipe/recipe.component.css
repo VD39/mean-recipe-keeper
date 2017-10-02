@@ -1,0 +1,27 @@
+md-icon {
+  margin-right: 10px;
+}
+
+.name {
+  margin: auto;
+}
+
+h3.mat-line {
+  font-size: 20px !important;
+}
+
+p.mat-line {
+  font-size: 18px !important;
+}
+
+h2.mat-subheader {
+  font-size: 25px;
+}
+
+span.step {
+  font-size: 25px;
+}
+
+.auto {
+  margin: 25px 15px;
+}

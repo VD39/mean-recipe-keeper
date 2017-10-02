@@ -1,0 +1,13 @@
+<div [formGroup]="parentFormGroup">
+  <md-card>
+    <div *ngIf="value === 'Directions'">
+      <app-item *ngFor="let item of formArray?.controls; let i = index" [formGroup]="formArray" [value]="value" [index]="i" (delete)="delete($event, i)"></app-item>
+    </div>
+
+    <div *ngIf="value === 'Ingredients'">
+      <app-item *ngFor="let item of formArray?.controls; let i = index" [formGroup]="item" [value]="value" [index]="i" (delete)="delete($event, i)"></app-item>
+    </div>
+
+    <button md-raised-button color="accent" class="full-width" (click)="add($event)">Add {{value}}</button>
+  </md-card>
+</div>

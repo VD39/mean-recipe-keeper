@@ -1,0 +1,22 @@
+<div [formGroup]="formGroup">
+  <md-card-title>
+    {{index + 1}}
+    <div fxFlex></div>
+    <md-icon (click)="delete.emit($event, index)">delete</md-icon>
+  </md-card-title>
+
+  <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="value === 'Ingredients'">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
+      <app-input type="text" [parentFormGroup]="formGroup" labelName="Quantity" controlName="quantity" [isRequired]="true"></app-input>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="70" fxFlex.sm="70">
+      <app-input type="text" [parentFormGroup]="formGroup" labelName="Ingredient" controlName="ingredient" [isRequired]="true"></app-input>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch" *ngIf="value === 'Directions'">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+      <app-input type="textarea" [parentFormGroup]="formGroup" labelName="Directions" [controlName]="index"></app-input>
+    </div>
+  </div>
+</div>

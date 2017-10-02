@@ -1,0 +1,22 @@
+<div [formGroup]="parentFormGroup">
+  <md-card>
+    <div formArrayName="ingredients">
+      <div class="item" *ngFor="let ingredient of formArray.controls; let i = index" [formGroupName]="i">
+        <md-card-title>
+          Ingredient {{i+1}}
+          <div fxFlex></div>
+          <md-icon (click)="delete($event, i)">delete</md-icon>
+        </md-card-title>
+
+        <app-input type="text" [parentFormGroup]="formArray.controls[i]" labelName="For" controlName="for" [isRequired]="true"></app-input>
+
+        <md-card-title>
+          Ingredients
+        </md-card-title>
+
+        <app-item-array [parentFormGroup]="parentFormGroup" [formArray]="ingredient.controls.ingredients" value="Ingredients"></app-item-array>
+      </div>
+      <button md-raised-button color="accent" class="full-width" (click)="add($event)">Add Ingredient</button>
+    </div>
+  </md-card>
+</div>

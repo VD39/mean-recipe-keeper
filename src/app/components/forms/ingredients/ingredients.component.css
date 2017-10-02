@@ -1,0 +1,13 @@
+.html.segment {
+  padding: 3.5em 1em 1em;
+}
+
+.item {
+  margin-bottom: 25px;
+}
+
+md-icon {
+  float: right;
+  cursor: pointer;
+  color: red;
+}

@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.15/css/perfect-scrollbar.min.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import '~@angular/material/prebuilt-themes/purple-green.css';
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+img,
+video {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  background-color: #303030;
+  color: white;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.mat-card {
+  margin: 8px;
+  overflow: hidden;
+}
+
+.mat-tab-label {
+  width: 100%;
+}
+
+.ps-scrollbar-y-rail {
+  z-index: 999;
+}
+
+.auto .mat-list-item-content {
+  height: auto !important;
+}
+
+.card-img {
+  padding: 0 !important;
+  img {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+.mat-select-trigger,
+.margin {
+  margin: 15px;
+}

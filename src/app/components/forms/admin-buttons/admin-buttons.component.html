@@ -1,0 +1,15 @@
+<button md-icon-button [mdMenuTriggerFor]="accountMenu">
+  <md-icon>more_vert</md-icon>
+</button>
+
+<md-menu #accountMenu="mdMenu">
+  <button md-menu-item [routerLink]="['/admin/recipe/edit/', id]">
+    <md-icon>edit</md-icon>
+    <span>Edit</span>
+  </button>
+
+  <button md-menu-item (click)="recipeService.deleteRecipe(id)">
+    <md-icon>delete</md-icon>
+    <span>Delete</span>
+  </button>
+</md-menu>

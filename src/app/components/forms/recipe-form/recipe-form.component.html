@@ -1,0 +1,124 @@
+<section *ngIf="loading">
+  <md-progress-bar color="accent" mode="indeterminate"></md-progress-bar>
+</section>
+
+<div *ngIf="error">
+  <md-card>
+    <p>{{errorMessage}}</p>
+  </md-card>
+</div>
+
+
+
+<form [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading && !error">
+  <md-toolbar>
+    Add
+  </md-toolbar>
+
+  <md-tab-group>
+    <md-tab label="Overview">
+      <ng-template md-tab-label>
+        <md-icon>restaurant</md-icon>
+        <span>Overview</span>
+      </ng-template>
+
+      <div>
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+          <div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="40">
+            <md-card class="card-img">
+              <img *ngIf="recipeForm.controls.image.value" src="{{recipeForm.controls.image.value}}" />
+              <img *ngIf="!recipeForm.controls.image.value" src="{{defaultImage}}" />
+
+              <app-input type="text" [parentFormGroup]="recipeForm" labelName="Image" controlName="image" [isRequired]="true"></app-input>
+
+              <label for="file-upload">
+                    <div class="mat-raised-button mat-accent full-width">
+                        <span class="mat-button-wrapper">
+                          <md-icon>library_add</md-icon>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </div>
+                  <input id="file-upload" type="file" (change)="getImageData($event)" style="display: none;"/>
+                </label>
+            </md-card>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60">
+            <app-input type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
+            <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro"></app-input>
+
+            <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+              <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                <app-input type="number" [parentFormGroup]="recipeForm" labelName="Serves" controlName="serves" [isRequired]="true"></app-input>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                <app-input type="number" [parentFormGroup]="recipeForm" labelName="Preparation Time" controlName="prep_time" [isRequired]="true"></app-input>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                <app-input type="number" [parentFormGroup]="recipeForm" labelName="Cook Time" controlName="cook_time" [isRequired]="true"></app-input>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                <md-select placeholder="Course Types" formControlName="course_type" class="full-width">
+                  <md-option *ngFor="let courseType of courseTypes" [value]="courseType.type">
+                    {{courseType.type}}
+                  </md-option>
+                </md-select>
+                <div class="ui error message" *ngIf="recipeForm.controls.course_type.errors?.required && recipeForm.controls.course_type.dirty">
+                  <p>This field is required.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-tab>
+
+    <md-tab label="Ingredients">
+      <ng-template md-tab-label>
+        <md-icon>shopping_basket</md-icon>
+        <span>Ingredients</span>
+      </ng-template>
+
+      <div>
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+          <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+            <md-select placeholder="Type" formControlName="type" class="full-width">
+              <md-option value="99">Select Type</md-option>
+              <md-option value="0">Single</md-option>
+              <md-option value="1">Multiple</md-option>
+            </md-select>
+
+            <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentFormGroup]="recipeForm" [formArray]="ingredients" value="Ingredients"></app-item-array>
+            <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArray]="ingredients"></app-ingredients>
+          </div>
+        </div>
+      </div>
+    </md-tab>
+
+    <md-tab label="Directions">
+      <ng-template md-tab-label>
+        <md-icon>assignment</md-icon>
+        <span>Directions</span>
+      </ng-template>
+
+      <div>
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+          <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+            <app-item-array [parentFormGroup]="recipeForm" [formArray]="directions" value="Directions"></app-item-array>
+          </div>
+        </div>
+      </div>
+    </md-tab>
+  </md-tab-group>
+
+  <button md-raised-button color="accent" [disabled]="recipeForm.invalid" class="margin full-width">{{buttonText}}</button>
+
+  <md-error *ngIf="errorMessage">
+    <h4>Error</h4>
+    <p *ngFor="let error of errorMessage">{{error.message}}</p>
+  </md-error>
+</form>
