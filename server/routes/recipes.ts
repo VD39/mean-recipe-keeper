@@ -2,21 +2,18 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { Types } from 'mongoose';
 
-// Import middleware
-import { checkRequiredFields } from '../middleware';
-
 // Import models
 import { Recipe } from '../models/recipe';
 
 // Import interfaces
-import { IFields } from '../interfaces/fields.interface';
+import { IFields, IErrors } from '../interfaces';
 
 export class RecipeRoute {
-  router: Router;
+  router: Router; // Express router
 
   constructor() {
-    this.router = Router();
-    this.routes();
+    this.router = Router(); // Set express router
+    this.routes(); // Call routes
   }
 
   /**
@@ -26,11 +23,10 @@ export class RecipeRoute {
    * @param next {NextFunction} The next function to continue.
    */
   public getRecipes(req: Request, res: Response, next: NextFunction): void | Response {
-    let projection: object = {};
-    let find: object = {};
+    let projection: object = {}; // Projection object
+    const find: object = {}; // Find object
 
-    // Set limit
-    const limit: number = req.query.limit ? parseInt(req.query.limit, 10) : 0;
+    const limit: number = req.query.limit ? parseInt(req.query.limit, 10) : 0; // Set limit
 
     // Set projection if fields are set within query
     if (req.query.fields) {
@@ -42,7 +38,7 @@ export class RecipeRoute {
 
     // Set course type if coursetype is set within query
     if (req.query.coursetype) {
-      find['course_type'] = req.query.coursetype;
+      find['course_type'] = req.query.coursetype; // Set course type
     }
 
     // Set search for name field if search is set within query
@@ -50,7 +46,7 @@ export class RecipeRoute {
       find['name'] = {
         '$regex': req.query.search,
         '$options': 'i'
-      };
+      }; // Set search query
     }
 
     Recipe
@@ -76,9 +72,10 @@ export class RecipeRoute {
    */
   public getRecipe(req: Request, res: Response, next: NextFunction): void | Response {
     const id: string = req.params.id; // Param id
+
+    // Check if Id is set
     if (!id) {
-      // Return and send error message
-      return res.error(400, 'No recipe ID was provided.');
+      return res.error(400, 'No recipe ID was provided.'); // Return and send error message
     }
 
     // Check id is valid
@@ -101,8 +98,7 @@ export class RecipeRoute {
         })
         .catch(next); // Catch the error using next middleware
     } else {
-      // Send error message
-      res.error(400, `The ID ${id}, is not a valid ID.`);
+      res.error(400, `The ID ${id}, is not a valid ID.`); // Send error message
     }
   }
 
@@ -113,33 +109,16 @@ export class RecipeRoute {
    * @param next {NextFunction} The next function to continue.
    */
   public addRecipe(req: Request, res: Response, next: NextFunction): void | Response {
-    const requiredFields: IFields = {
-      type: [req.body.type, 'Type is required.'],
-      name: [req.body.name, 'Name is required.'],
-      image: [req.body.image, 'Image is required.'],
-      serves: [req.body.serves, 'Serves total is required.'],
-      prep_time: [req.body.prep_time, 'Prep Time is required.'],
-      cook_time: [req.body.cook_time, 'Cook Time is required.'],
-      course_type: [req.body.course_type, 'Course Type is required.'],
-      directions: [req.body.directions, 'Directions is required.'],
-      ingredients: [req.body.ingredients, 'Ingredients is required.']
-    };
-
-    // Sets errors
-    const errors: object[] = checkRequiredFields(requiredFields);
-
-    // Check type is 0 or 1
-    if (req.body.type < 0 || req.body.type > 1) {
-      errors.unshift({
-        field: 'type',
-        message: 'Type is not correct, must be either 0 or 1.'
-      });
+    // Check if there a response body
+    if (!Object.keys(req.body).length) {
+      return res.error(400, 'No fields were set.'); // Return and send error message
     }
+
+    const errors: IErrors[] = res.checkRequiredFields(req.body); // Sets errors
 
     // Check error length
     if (errors.length > 0) {
-      // Return and send error message
-      return res.error(400, errors);
+      return res.error(400, errors); // Return and send error message
     }
 
     // Set body total time
@@ -161,8 +140,21 @@ export class RecipeRoute {
    * @param next {NextFunction} The next function to continue.
    */
   public updateRecipe(req: Request, res: Response, next: NextFunction): void | Response {
+    // Check if there a response body
+    if (!Object.keys(req.body).length) {
+      return res.error(400, 'No fields were set.'); // Return and send error message
+    }
+
+    const errors: IErrors[] = res.checkRequiredFields(req.body); // Sets errors
+
+    // Check error length
+    if (errors.length > 0) {
+      return res.error(400, errors); // Return and send error message
+    }
+
     // Set body total time
     req.body.total_time = parseInt(req.body.prep_time, 10) + parseInt(req.body.cook_time, 10);
+
     Recipe
       .findByIdAndUpdate({
         _id: req.params.id
@@ -201,14 +193,14 @@ export class RecipeRoute {
    * Authentication routes.
    */
   public routes(): void {
-    const recipesRoute: Router = this.router.route('/recipes');
-    recipesRoute.get(this.getRecipes);
-    recipesRoute.post(this.addRecipe);
+    const recipesRoute: Router = this.router.route('/recipes'); // Set route
+    recipesRoute.get(this.getRecipes); // Get method for recipesRoute
+    recipesRoute.post(this.addRecipe); // Post method for recipesRoute
 
-    const recipeIdRoute: Router = this.router.route('/recipe/:id');
-    recipeIdRoute.get(this.getRecipe);
-    recipeIdRoute.put(this.updateRecipe);
-    recipeIdRoute.delete(this.deleteRecipe);
+    const recipeIdRoute: Router = this.router.route('/recipe/:id'); // Set route
+    recipeIdRoute.get(this.getRecipe); // Get method for recipeIdRoute
+    recipeIdRoute.put(this.updateRecipe); // Put method for recipeIdRoute
+    recipeIdRoute.delete(this.deleteRecipe); // Delete method for recipeIdRoute
   }
 }
 

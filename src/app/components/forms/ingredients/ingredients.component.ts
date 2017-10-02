@@ -16,7 +16,7 @@ export class IngredientsComponent {
   public parentFormGroup: FormGroup; // Parents form group
 
   @Input()
-  public formArrayxx: FormArray; // Form array
+  public formArray: FormArray; // Form array
 
   constructor(
     private formService: FormService
@@ -24,21 +24,21 @@ export class IngredientsComponent {
 
   /**
    * Adds ingredient to form array.
-   * @param event {Event} Event
+   * @param event {Event} Event.
    */
   add(event: Event): void {
     event.preventDefault(); // Prevent default
-    this.formArrayxx = this.formService.populateIngredients(this.formArrayxx); // Add to form array
+    this.formArray = this.formService.populateIngredients(this.formArray); // Add to form array
   }
 
   /**
    * Deletes ingredient to form array.
-   * @param event {Event} Event
-   * @param index {number} Index of the ingredient
+   * @param event {Event} Event.
+   * @param index {number} Index of the ingredient.
    */
   delete(event: Event, index: number): void {
     event.preventDefault(); // Prevent default
-    const formArray = <FormArray>this.formArrayxx; // Set form control
+    const formArray = <FormArray>this.formArray; // Set form control
     formArray.removeAt(index); // Remove item from array
   }
 }

@@ -23,8 +23,8 @@ export class RecipeComponent implements OnInit, OnDestroy {
   public noResult: boolean = false; // Loading status set to false
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
     private recipeService: RecipeService,
     public authenticationService: AuthenticationService
   ) {
@@ -62,7 +62,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
   /**
    * Converts minutes to hour and minutes.
-   * @param minutes {number} Minutes to convert
+   * @param minutes {number} Minutes to convert.
    */
   convertMinsToHrsMins(minutes: number): string {
     let h: any = Math.floor(minutes / 60); // Set hours

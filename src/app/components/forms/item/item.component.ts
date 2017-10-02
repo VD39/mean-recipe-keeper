@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 
 export class ItemComponent {
   @Input()
-  public item: FormGroup; // Parent form group
+  public formGroup: FormGroup; // Parent form group
 
   @Input()
   public index: number; // Index for the input

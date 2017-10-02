@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
   public error: boolean = false; // Error set to false
 
   constructor(
-    private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
   ) {
     this.createForm(); // Creates form

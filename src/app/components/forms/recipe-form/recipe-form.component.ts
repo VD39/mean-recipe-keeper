@@ -21,6 +21,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   private subscription: Subscription; // Subscription
   private recipeId: string; // Recipe Id
   private edit: boolean = false; // Edit status set to false
+  public buttonText: string = 'Add Recipe';
   public recipeForm: FormGroup; // Recipe form group
   public image: FormControl; // Image form control
   public directions: FormArray; // Directions form array
@@ -35,11 +36,11 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   /* tslint:enable:max-line-length */
 
   constructor(
-    private formService: FormService,
-    private recipeService: RecipeService,
-    private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private formService: FormService,
+    private recipeService: RecipeService
   ) {
     this.createForm(); // Creates form
   }
@@ -65,26 +66,27 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
       if (params['id']) {
         this.loading = true; // Set loading to true
         this.recipeId = params['id']; // Set recipe Id
+        this.buttonText = 'Update Recipe';
         this.edit = true; // Set edit to true
         // Get the recipe data to be edit
         this.recipeService.getRecipe(this.recipeId).subscribe(
           (data: IResponse) => {
-            this.recipe = data.data;
             (<FormGroup>this.recipeForm).patchValue({
-              type: this.recipe.type, // Type input field
-              name: this.recipe.name, // Name input field
-              intro: this.recipe.intro, // Intro input field
-              image: this.recipe.image, // Image input field
-              serves: this.recipe.serves, // Serves input field
-              prep_time: this.recipe.prep_time, // Prep time input field
-              cook_time: this.recipe.cook_time, // Cook time input field
-              course_type: this.recipe.course_type // Course type input field
+              type: data.data.type, // Type input field
+              name: data.data.name, // Name input field
+              intro: data.data.intro, // Intro input field
+              image: data.data.image, // Image input field
+              serves: data.data.serves, // Serves input field
+              prep_time: data.data.prep_time, // Prep time input field
+              cook_time: data.data.cook_time, // Cook time input field
+              course_type: data.data.course_type // Course type input field
             });
             // Set ingredients field depending on type
-            this.ingredients = this.recipe.type === 1 ?
-              this.formService.populateIngredients(this.ingredients, <IIngredientFor[]>this.recipe.ingredients)
-              : this.formService.populateArray(this.formBuilder.array([]), 'ingredients', <IIngredientSingle[]>this.recipe.ingredients);
-            this.directions = this.formService.populateArray(this.directions, 'directions', this.recipe.directions); // Set directions field
+            this.ingredients = data.data.type === 1 ?
+              this.formService.populateIngredients(this.ingredients, <IIngredientFor[]>data.data.ingredients)
+              : this.formService.populateArray(this.formBuilder.array([]), 'ingredients', <IIngredientSingle[]>data.data.ingredients);
+            this.directions = this.formService.populateArray(this.directions, 'directions', data.data.directions); // Set directions field
+            this.recipeForm.get('type').disable();
             this.loading = false; // Set loading to false
           },
           (error: IResponse | any) => {
@@ -111,19 +113,19 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
       recipe.id = this.recipeId; // Set id
       this.recipeService.editRecipe(this.recipeId, recipe).subscribe(
         (data: IResponse) => {
+          this.errorMessage = null;
           this.router.navigate(['/']); // Navigate to home page
         },
         (error: IResponse | any) => {
-          this.error = true; // Set error to true
           this.errorMessage = error.message; // Set the error message
         });
     } else {
       this.recipeService.addRecipe(recipe).subscribe(
         (data: IResponse) => {
+          this.errorMessage = null;
           this.router.navigate(['/']); // Navigate to home page
         },
         (error: IResponse | any) => {
-          this.error = true; // Set error to true
           this.errorMessage = error.message; // Set the error message
         });
     }
@@ -139,7 +141,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     this.recipeForm = this.formBuilder.group({
       type: ['99', Validators.required], // Type input field
       name: ['', Validators.required], // Name input field
-      intro: ['', Validators.required], // Intro input field
+      intro: [''], // Intro input field
       image: this.image, // Image input field
       serves: ['', Validators.required], // Serves input field
       prep_time: ['', Validators.required], // Prep time input field
@@ -170,7 +172,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
 
   /**
    * Gets the image base32 data.
-   * @param event {any} Event
+   * @param event {any} Event.
    */
   getImageData(event: any): void {
     event.preventDefault(); // Prevent default

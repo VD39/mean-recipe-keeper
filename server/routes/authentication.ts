@@ -6,11 +6,11 @@ import { sign } from 'jsonwebtoken';
 import { User } from '../models/user';
 
 class AuthenticationRoute {
-  router: Router;
+  router: Router; // Express router
 
   constructor() {
-    this.router = Router();
-    this.routes();
+    this.router = Router(); // Set express router
+    this.routes(); // Call routes
   }
 
   /**
@@ -20,14 +20,14 @@ class AuthenticationRoute {
    * @param next {NextFunction} The next function to continue.
    */
   public login(req: Request, res: Response, next: NextFunction): void | Response {
+    // Check if email is in body response
     if (!req.body.email) {
-      // Return and send error message
-      return res.error(422, 'Email not set.');
+      return res.error(422, 'Email not set.'); // Return and send error message
     }
 
+    // Check if password is in body response
     if (!req.body.password) {
-      // Return and send error message
-      return res.error(422, 'Password not set.');
+      return res.error(422, 'Password not set.'); // Return and send error message
     }
 
     User
@@ -35,17 +35,17 @@ class AuthenticationRoute {
         email: req.body.email.toLowerCase()
       })
       .then((user) => {
+        // Check is user was found
         if (!user) {
-          // Return and send error message
-          return res.error(422, 'Email not found.');
+          return res.error(422, 'Email not found.'); // Return and send error message
         }
 
         // Validates the password
         const validPassword = user.comparePassword(req.body.password, user.password);
 
+        // Check if the password was a match
         if (!validPassword) {
-          // Return and send error message
-          return res.error(422, 'Password was incorrect.');
+          return res.error(422, 'Password was incorrect.'); // Return and send error message
         }
 
         // Create a token for client
@@ -69,8 +69,8 @@ class AuthenticationRoute {
    * Authentication routes.
    */
   routes(): void {
-    const loginRoute: Router = this.router.route('/auth/login');
-    loginRoute.post(this.login);
+    const loginRoute: Router = this.router.route('/auth/login'); // Set route
+    loginRoute.post(this.login); // Post method for loginRoute
   }
 }
 

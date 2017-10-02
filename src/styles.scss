@@ -3,6 +3,32 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.15/css/perfect-scrollbar.min.css');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import '~@angular/material/prebuilt-themes/purple-green.css';
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+img,
+video {
+  display: block;
+}
+
 html,
 body {
   height: 100%;
@@ -43,4 +69,9 @@ body {
     width: 100%;
     margin: auto;
   }
+}
+
+.mat-select-trigger,
+.margin {
+  margin: 15px;
 }

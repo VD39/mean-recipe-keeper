@@ -31,7 +31,7 @@ export class AuthenticationService extends HandleRequestService {
 
   /**
    * Post method to log user in.
-   * @param user {IUser} User object
+   * @param user {IUser} User object.
    */
   public login(user: IUser): Observable<IResponse> {
     // Return request
@@ -50,7 +50,7 @@ export class AuthenticationService extends HandleRequestService {
 
   /**
    * Stores user's data in client local storage.
-   * @param token {string} Authentication token
+   * @param token {string} Authentication token.
    */
   public storeUserData(token: string): void {
     localStorage.setItem('token', token); // Set token in local storage

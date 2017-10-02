@@ -2,7 +2,7 @@
 import { Schema, Document, Model, model } from 'mongoose';
 
 // Import interface
-import { IRecipe } from '../interfaces/recipe.interface';
+import { IRecipe } from '../interfaces';
 
 // Create recipe schema
 const RecipeSchema: Schema = new Schema({

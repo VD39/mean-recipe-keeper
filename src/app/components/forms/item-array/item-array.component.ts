@@ -13,10 +13,10 @@ import { FormService } from '../../../services/form.service';
 
 export class ItemArrayComponent {
   @Input()
-  public parentsFormGroup: FormGroup; // Parents form group
+  public parentFormGroup: FormGroup; // Parents form group
 
   @Input()
-  public itemArray: FormArray; // Form array
+  public formArray: FormArray; // Form array
 
   @Input()
   public value: string; // Field value
@@ -27,21 +27,21 @@ export class ItemArrayComponent {
 
   /**
    * Adds item to form array.
-   * @param event {Event} Event
+   * @param event {Event} Event.
    */
   add(event: Event): void {
     event.preventDefault(); // Prevent default
-    this.itemArray = this.formService.populateArray(this.itemArray, this.value); // Add to form array
+    this.formArray = this.formService.populateArray(this.formArray, this.value); // Add to form array
   }
 
   /**
    * Deletes item to form array.
-   * @param event {Event} Event
-   * @param index {number} Index of the ingredient
+   * @param event {Event} Event.
+   * @param index {number} Index of the ingredient.
    */
   delete(event: Event, index: number): void {
     event.preventDefault(); // Prevent default
-    const formArray = <FormArray>this.itemArray; // Set form control
+    const formArray = <FormArray>this.formArray; // Set form control
     formArray.removeAt(index); // Remove item from array
   }
 }

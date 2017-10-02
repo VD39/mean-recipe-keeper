@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
   public search: boolean = false; // If search should be visible
 
   constructor(
-    private recipeService: RecipeService,
     private router: Router,
+    private recipeService: RecipeService,
     public authenticationService: AuthenticationService
   ) { }
 

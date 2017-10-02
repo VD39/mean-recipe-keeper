@@ -9,17 +9,17 @@ import { responseMiddleware } from './middleware';
 
 // Import API routes
 import RecipeRoute from './routes/recipes';
-import AuthenticationRoute from './routes/authentication';
 import CourseTypesRoute from './routes/course-types';
+import AuthenticationRoute from './routes/authentication';
 
 class Server {
-  public app: express.Application;
+  public app: express.Application; // Main express app
 
   constructor() {
-    this.app = express();
-    this.connectToMongoDB();
-    this.config();
-    this.routes();
+    this.app = express(); // Set express
+    this.connectToMongoDB(); // Connect to MongoDB
+    this.config(); // Call config
+    this.routes(); // Call routes
   }
 
   /**
@@ -41,11 +41,11 @@ class Server {
 
   /**
    * Creates the index route.
-   * @param req
-   * @param res
+   * @param req {express.Request} The express request object.
+   * @param res {express.Response} The express response object.
    */
   private indexRoute(req: express.Request, res: express.Response): void {
-    res.success(200, null, 'Welcome to Recipe API');
+    res.success(200, null, 'Welcome to Recipe API'); // Send success response
   }
 
   /**
@@ -62,8 +62,8 @@ class Server {
     }));
 
     // API routes
-    this.app.all('/api', this.indexRoute);
-    this.app.all(`/api/${process.env.VERSION_NUMBER}`, this.indexRoute);
+    this.app.all('/api', this.indexRoute); // User default index route
+    this.app.all(`/api/${process.env.VERSION_NUMBER}`, this.indexRoute); // User default index route
   }
 
   /**

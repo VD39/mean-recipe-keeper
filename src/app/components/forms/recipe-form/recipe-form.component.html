@@ -8,10 +8,14 @@
   </md-card>
 </div>
 
+
+
 <form [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading && !error">
   <md-toolbar>
     Add
   </md-toolbar>
+
+  <pre>{{recipeForm.value | json}}</pre>
 
   <md-tab-group>
     <md-tab label="Overview">
@@ -21,7 +25,7 @@
       </ng-template>
 
       <div>
-        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
           <div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="40">
             <md-card class="card-img">
               <img *ngIf="recipeForm.controls.image.value" src="{{recipeForm.controls.image.value}}" />
@@ -44,7 +48,7 @@
 
           <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60">
             <app-input type="text" [parentFormGroup]="recipeForm" labelName="Name" controlName="name" [isRequired]="true"></app-input>
-            <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro" [isRequired]="true"></app-input>
+            <app-input type="textarea" [parentFormGroup]="recipeForm" labelName="Introduction" controlName="intro"></app-input>
 
             <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
               <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
@@ -82,7 +86,7 @@
       </ng-template>
 
       <div>
-        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
           <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
             <md-select placeholder="Type" formControlName="type" class="full-width">
               <md-option value="99">Select Type</md-option>
@@ -90,8 +94,8 @@
               <md-option value="1">Multiple</md-option>
             </md-select>
 
-            <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentsFormGroup]="recipeForm" [itemArray]="ingredients" value="Ingredients"></app-item-array>
-            <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArrayxx]="ingredients"></app-ingredients>
+            <app-item-array *ngIf="recipeForm.controls.type.value == 0" [parentFormGroup]="recipeForm" [formArray]="ingredients" value="Ingredients"></app-item-array>
+            <app-ingredients *ngIf="recipeForm.controls.type.value == 1" [parentFormGroup]="recipeForm" [formArray]="ingredients"></app-ingredients>
           </div>
         </div>
       </div>
@@ -104,19 +108,19 @@
       </ng-template>
 
       <div>
-        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
+        <div class="margin" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start stretch">
           <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-            <app-item-array [parentsFormGroup]="recipeForm" [itemArray]="directions" value="Directions"></app-item-array>
+            <app-item-array [parentFormGroup]="recipeForm" [formArray]="directions" value="Directions"></app-item-array>
           </div>
         </div>
       </div>
     </md-tab>
   </md-tab-group>
 
-  <button md-raised-button color="accent" [disabled]="recipeForm.invalid" class="full-width">Add Recipe</button>
+  <button md-raised-button color="accent" [disabled]="recipeForm.invalid" class="margin full-width">{{buttonText}}</button>
 
-  <div class="ui error message" *ngIf="error">
-    <div class="header">Error</div>
+  <md-error *ngIf="errorMessage">
+    <h4>Error</h4>
     <p *ngFor="let error of errorMessage">{{error.message}}</p>
-  </div>
+  </md-error>
 </form>

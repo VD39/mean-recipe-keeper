@@ -2,7 +2,7 @@
 import { Schema, Document, Model, model } from 'mongoose';
 
 // Import interface
-import { ICourseType } from '../interfaces/course-type.interface';
+import { ICourseType } from '../interfaces';
 
 // Create course type schema
 const CourseTypeSchema: Schema = new Schema({

@@ -9,7 +9,7 @@ import Server from './server';
 
 // 404 error
 Server.all('*', (req: Request, res: Response): void => {
-  res.error(404, 'Path Not Found');
+  res.error(404, 'Path Not Found'); // Send error response
 });
 
 // Error handling middleware

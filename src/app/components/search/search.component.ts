@@ -22,8 +22,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   public noResult: boolean = false; // Loading status set to false
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
     private recipeService: RecipeService
   ) {
     // Subscribed to event

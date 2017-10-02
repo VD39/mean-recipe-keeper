@@ -1,5 +1,5 @@
-<md-card>
-  <img [routerLink]="['/recipe', recipe._id]" md-card-image src="{{recipe.image}}" alt="Photo of {{recipe.name}}">
+<md-card class="margin-lr">
+  <img [routerLink]="['/recipe', recipe._id]" md-card-image src="./assets/images/{{recipe.image}}" alt="Photo of {{recipe.name}}">
 
   <md-card-title>
     <span>{{recipe.name}}</span>
@@ -12,6 +12,6 @@
   </md-card-subtitle>
 
   <md-card-content>
-    <p>{{recipe.intro | trim:100}}</p>
+    <p>{{recipe.intro | trim:80}}</p>
   </md-card-content>
 </md-card>

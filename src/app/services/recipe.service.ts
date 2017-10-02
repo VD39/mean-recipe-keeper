@@ -27,9 +27,9 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Gets the recipes based on paramaters.
-   * @param fields {string} Fields to return from API
-   * @param limit {number} Limit of return results
-   * @param coursetype {string} Course types
+   * @param fields {string} Fields to return from API.
+   * @param limit {number} Limit of return results.
+   * @param coursetype {string} Course types.
    */
   public getRecipes(fields: string, limit: number = 0, coursetype: string = ''): Observable<IResponse> {
     return this.http
@@ -40,7 +40,7 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Gets the recipe via ID.
-   * @param id {string} Id of the recipe
+   * @param id {string} Id of the recipe.
    */
   public getRecipe(id: string): Observable<IResponse> {
     return this.http
@@ -51,7 +51,7 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Add recipe to the database.
-   * @param recipe {IRecipe} Recipe object
+   * @param recipe {IRecipe} Recipe object.
    */
   public addRecipe(recipe: IRecipe): Observable<IResponse> {
     return this.http
@@ -62,8 +62,8 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Edits the recipe.
-   * @param id {string} Id of the recipe
-   * @param recipe {IRecipe} Recipe object
+   * @param id {string} Id of the recipe.
+   * @param recipe {IRecipe} Recipe object.
    */
   public editRecipe(id: string, recipe: IRecipe): Observable<IResponse> {
     return this.http
@@ -74,7 +74,7 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Deletes the recipe from the database.
-   * @param id {string} Id of the recipe
+   * @param id {string} Id of the recipe.
    */
   public deleteRecipe(id: string): void {
     // TODO: Change this dirty hack to use material design alert
@@ -105,8 +105,8 @@ export class RecipeService extends HandleRequestService {
 
   /**
    * Search for recipe.
-   * @param searchTerm {string} Search term
-   * @param fields {string} Fields to return
+   * @param searchTerm {string} Search term.
+   * @param fields {string} Fields to return.
    */
   public searchRecipes(searchTerm: string, fields: string = ''): Observable<IResponse> {
     return this.http

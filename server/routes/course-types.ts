@@ -5,11 +5,11 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { CourseType } from '../models/course-type';
 
 export class CourseTypesRoute {
-  router: Router;
+  router: Router; // Express router
 
   constructor() {
-    this.router = Router();
-    this.routes();
+    this.router = Router(); // Set express router
+    this.routes(); // Call routes
   }
 
   /**
@@ -40,9 +40,9 @@ export class CourseTypesRoute {
    * @param next {NextFunction} The next function to continue.
    */
   public addCourseType(req: Request, res: Response, next: NextFunction): void | Response {
+    // Check if there a response type in body
     if (!req.body.type) {
-      // Return and send error message
-      return res.error(400, 'No course type was provided.');
+      return res.error(400, 'No course type was provided.'); // Return and send error message
     }
 
     CourseType
@@ -58,9 +58,9 @@ export class CourseTypesRoute {
    * Authentication routes.
    */
   routes(): void {
-    const courseTypesRoute: Router = this.router.route('/coursetypes');
-    courseTypesRoute.get(this.getCourseTypes);
-    courseTypesRoute.post(this.addCourseType);
+    const courseTypesRoute: Router = this.router.route('/coursetypes'); // Set route
+    courseTypesRoute.get(this.getCourseTypes); // Get method for courseTypesRoute
+    courseTypesRoute.post(this.addCourseType); // Post method for courseTypesRoute
   }
 }
 

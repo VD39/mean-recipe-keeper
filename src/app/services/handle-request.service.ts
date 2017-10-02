@@ -13,7 +13,7 @@ import { IResponse } from '../interfaces/index';
 export class HandleRequestService {
   /**
    * Handles the response data.
-   * @param response {Response} Response from API
+   * @param response {Response} Response from API.
    */
   protected extractData(response: Response): IResponse {
     const body = response.json(); // Convert response to JSON
@@ -22,7 +22,7 @@ export class HandleRequestService {
 
   /**
    * Handles the error response.
-   * @param error {Response | any} Error Response from API
+   * @param error {Response | any} Error Response from API.
    */
   protected handleError(error: Response): Observable<any> {
     const contentType: string = error.headers.get('Content-Type');
