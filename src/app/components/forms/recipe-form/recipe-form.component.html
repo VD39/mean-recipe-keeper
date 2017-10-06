@@ -4,11 +4,9 @@
 
 <div *ngIf="error">
   <md-card>
-    <p>{{errorMessage}}</p>
+    <p>No results were found.</p>
   </md-card>
 </div>
-
-
 
 <form [formGroup]="recipeForm" (submit)="addRecipe()" novalidate *ngIf="!loading && !error">
   <md-toolbar>

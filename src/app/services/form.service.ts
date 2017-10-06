@@ -13,7 +13,7 @@ export class FormService {
 
   /**
    * Adds prop if set else empty string, to the form control.
-   * @param prop {string} Form control item.
+   * @param prop {string} - Form control item.
    */
   private addFormControl(prop?: string): FormControl {
     const item = prop ? prop : ''; // Set item
@@ -22,7 +22,7 @@ export class FormService {
 
   /**
    * Adds prop if set else empty string, to the form group.
-   * @param prop {IIngredientSingle} Form group item.
+   * @param prop {IIngredientSingle} - Form group item.
    */
   private addFormGroup(prop?: IIngredientSingle): FormGroup {
     const quantity = prop ? prop.quantity : ''; // Set quantity
@@ -36,7 +36,7 @@ export class FormService {
 
   /**
    * Adds prop if set else empty string and array, to the form group.
-   * @param prop {IIngredientFor} Form group item.
+   * @param prop {IIngredientFor} - Form group item.
    */
   private addIngredientsFormGroup(prop?: IIngredientFor): FormGroup {
     const _for = prop ? prop.for : ''; // Set _for
@@ -52,9 +52,9 @@ export class FormService {
 
   /**
    * Adds prop if set else empty array, to the form array.
-   * @param array {FormArray} The form array.
-   * @param value {string} The field value of the array.
-   * @param props {(string | IIngredientSingle)[]} The props for the array to be populated with.
+   * @param array {FormArray} - The form array.
+   * @param value {string} - The field value of the array.
+   * @param props {(string | IIngredientSingle)[]} - The props for the array to be populated with.
    */
   public populateArray(array: FormArray, value: string, props?: (string | IIngredientSingle)[]): FormArray {
     const formArray: FormArray = <FormArray>array; // Form array
@@ -93,8 +93,8 @@ export class FormService {
 
   /**
    * Adds prop if set else empty array, to the form array.
-   * @param array {FormArray} The form array.
-   * @param props {IIngredientFor} The props for the array to be populated with.
+   * @param array {FormArray} - The form array.
+   * @param props {IIngredientFor} - The props for the array to be populated with.
    */
   public populateIngredients(array: FormArray, props?: IIngredientFor[]): FormArray {
     const formArray: FormArray = <FormArray>array;

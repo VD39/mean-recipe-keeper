@@ -24,7 +24,7 @@ export class IngredientsComponent {
 
   /**
    * Adds ingredient to form array.
-   * @param event {Event} Event.
+   * @param event {Event} - Event.
    */
   add(event: Event): void {
     event.preventDefault(); // Prevent default
@@ -33,8 +33,8 @@ export class IngredientsComponent {
 
   /**
    * Deletes ingredient to form array.
-   * @param event {Event} Event.
-   * @param index {number} Index of the ingredient.
+   * @param event {Event} - Event.
+   * @param index {number} - Index of the ingredient.
    */
   delete(event: Event, index: number): void {
     event.preventDefault(); // Prevent default

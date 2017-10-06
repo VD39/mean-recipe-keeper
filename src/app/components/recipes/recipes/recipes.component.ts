@@ -18,7 +18,6 @@ export class RecipesComponent implements OnInit, OnDestroy {
   private subscription: Subscription; // Subscription
   public recipes: IRecipe[]; // Recipes
   public loading: boolean = true; // Loading status set to true
-  public noResult: boolean = false; // Loading status set to false
 
   constructor(
     private recipeService: RecipeService
@@ -37,14 +36,13 @@ export class RecipesComponent implements OnInit, OnDestroy {
         // Check if status was success and count is greater than 0
         if (data.status === 'success' && data.meta.count > 0) {
           this.recipes = data.data; // Set recipes to data array
-          this.noResult = false; // Set no results to false
         } else {
-          this.noResult = true; // Set no results to true
+          this.recipes = []; // Set empty array
         }
       },
       (error: IResponse | any) => {
         this.loading = false; // Set loading to false
-        this.noResult = true; // Set no results to true
+        this.recipes = []; // Set empty array
       });
   }
 

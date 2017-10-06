@@ -12,7 +12,7 @@
 
         <button class="full-width" md-raised-button color="accent" [disabled]="loginForm.invalid || processing">Login</button>
 
-        <md-error *ngIf="error">
+        <md-error *ngIf="errorMessage">
           <h4>Error</h4>
           <p>{{errorMessage}}</p>
         </md-error>

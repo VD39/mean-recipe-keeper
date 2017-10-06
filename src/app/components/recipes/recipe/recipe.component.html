@@ -2,13 +2,13 @@
   <md-progress-bar color="accent" mode="indeterminate"></md-progress-bar>
 </section>
 
-<div *ngIf="!loading && noResult">
+<div *ngIf="!loading && !recipe">
   <md-card>
-    <p>No results were found.</p>
+    <p>No recipe was found.</p>
   </md-card>
 </div>
 
-<div class="recipe" *ngIf="!loading && !noResult">
+<div class="recipe" *ngIf="!loading && recipe">
   <md-toolbar>
     <h1 class="name">{{recipe.name}}</h1>
     <div fxFlex></div>
@@ -34,7 +34,7 @@
 
             <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60">
               <md-list>
-                <md-list-item>
+                <md-list-item *ngIf="recipe.intro">
                   <p> {{recipe.intro}} </p>
                 </md-list-item>
 
@@ -83,7 +83,7 @@
         <md-card>
           <md-list>
             <md-list-item class="auto" *ngFor="let ingredient of recipe.ingredients; let i = index">
-              <p>{{ingredient.quantity}} of {{ingredient.ingredient}}</p>
+              <p>{{ingredient.quantity}} - {{ingredient.ingredient}}</p>
             </md-list-item>
           </md-list>
         </md-card>
@@ -94,7 +94,7 @@
           <md-list *ngFor="let ingredient of recipe.ingredients; let i = index">
             <h2 md-subheader>{{ingredient.for}}</h2>
             <md-list-item class="auto" *ngFor="let iingredient of ingredient.ingredients; let i = index">
-              <p> {{iingredient.quantity}} of {{iingredient.ingredient}} </p>
+              <p> {{iingredient.quantity}} - {{iingredient.ingredient}} </p>
             </md-list-item>
           </md-list>
         </md-card>

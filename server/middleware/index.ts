@@ -6,17 +6,17 @@ import { IRecipe, IFields, IErrors } from '../interfaces';
 
 /**
  * Response middleware for success and error methods.
- * @param req {Request} The express request object.
- * @param res {Response} The express response object.
- * @param next {NextFunction} The next function to continue.
+ * @param req {Request} - The express request object.
+ * @param res {Response} - The express response object.
+ * @param next {NextFunction} - The next function to continue.
  */
 export const responseMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   /**
    * Success response.
-   * @param status {number} Status of the response.
-   * @param results {any} Result to send with the response.
-   * @param message {any} Message to send with the response.
-   * @param meta {any} Meta data to send with the response.
+   * @param status {number} - Status of the response.
+   * @param results {any} - Result to send with the response.
+   * @param message {any} - Message to send with the response.
+   * @param meta {any} - Meta data to send with the response.
    */
   res.success = (status: number, results: any, message: any = null, meta: any = null): Response => {
     // Return repsonse
@@ -30,9 +30,9 @@ export const responseMiddleware = (req: Request, res: Response, next: NextFuncti
 
   /**
    * Error response.
-   * @param status {number} Status of the response.
-   * @param message {any} Message to send with the response.
-   * @param meta {any} Meta data to send with the response.
+   * @param status {number} - Status of the response.
+   * @param message {any} - Message to send with the response.
+   * @param meta {any} - Meta data to send with the response.
    */
   res.error = (status: number, message: any = null, meta: any = null): Response => {
     // Return repsonse
@@ -46,7 +46,7 @@ export const responseMiddleware = (req: Request, res: Response, next: NextFuncti
 
   /**
    * Checks fields exist and returns the errors.
-   * @param fields {IRecipe} Fields to check from the response.
+   * @param fields {IRecipe} - Fields to check from the response.
    */
   res.checkRequiredFields = (fields: IRecipe): IErrors[] => {
     const errors: IErrors[] = []; // Errors array to hold
@@ -99,10 +99,10 @@ export const responseMiddleware = (req: Request, res: Response, next: NextFuncti
 
 /**
  * Middleware for errors within routes.
- * @param error {any} The error of the repsonse.
- * @param req {Request} The express request object.
- * @param res {Response} The express response object.
- * @param next {NextFunction} The next function to continue.
+ * @param error {any} - The error of the repsonse.
+ * @param req {Request} - The express request object.
+ * @param res {Response} - The express response object.
+ * @param next {NextFunction} - The next function to continue.
  */
 export const errorMiddleware = (error: any, req: Request, res: Response, next: NextFunction): void => {
   res.error(422, error.message); // Return error response

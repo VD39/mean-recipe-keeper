@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired } from 'angular2-jwt';
+import { HttpClient } from '@angular/common/http';
 
 // Import services
 import { HandleRequestService } from './handle-request.service';
@@ -17,7 +17,7 @@ export class AuthenticationService extends HandleRequestService {
   authToken: string; // Authentication token
 
   constructor(
-    private http: Http
+    private httpClient: HttpClient
   ) {
     super();
   }
@@ -31,12 +31,12 @@ export class AuthenticationService extends HandleRequestService {
 
   /**
    * Post method to log user in.
-   * @param user {IUser} User object.
+   * @param user {IUser} - User object.
    */
   public login(user: IUser): Observable<IResponse> {
     // Return request
-    return this.http.post('/api/v1/auth/login', user)
-      .map(this.extractData)
+    return this.httpClient
+      .post('/api/v1/auth/login', user)
       .catch(this.handleError);
   }
 
@@ -50,7 +50,7 @@ export class AuthenticationService extends HandleRequestService {
 
   /**
    * Stores user's data in client local storage.
-   * @param token {string} Authentication token.
+   * @param token {string} - Authentication token.
    */
   public storeUserData(token: string): void {
     localStorage.setItem('token', token); // Set token in local storage

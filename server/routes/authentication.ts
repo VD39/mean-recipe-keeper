@@ -15,9 +15,9 @@ class AuthenticationRoute {
 
   /**
    * Login route.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public login(req: Request, res: Response, next: NextFunction): void | Response {
     // Check if email is in body response

@@ -18,9 +18,9 @@ export class RecipeRoute {
 
   /**
    * Gets all recipes.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public getRecipes(req: Request, res: Response, next: NextFunction): void | Response {
     let projection: object = {}; // Projection object
@@ -66,9 +66,9 @@ export class RecipeRoute {
 
   /**
    * Get recipe using ID.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public getRecipe(req: Request, res: Response, next: NextFunction): void | Response {
     const id: string = req.params.id; // Param id
@@ -104,9 +104,9 @@ export class RecipeRoute {
 
   /**
    * Add recipe to database.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public addRecipe(req: Request, res: Response, next: NextFunction): void | Response {
     // Check if there a response body
@@ -135,9 +135,9 @@ export class RecipeRoute {
 
   /**
    * Updates recipe.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public updateRecipe(req: Request, res: Response, next: NextFunction): void | Response {
     // Check if there a response body
@@ -173,9 +173,9 @@ export class RecipeRoute {
 
   /**
    * Deletes Recipe.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public deleteRecipe(req: Request, res: Response, next: NextFunction): void | Response {
     Recipe
