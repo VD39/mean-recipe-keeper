@@ -18,8 +18,6 @@ export class RecipeService extends HandleRequestService {
   public recipeSubject: Subject<any> = new Subject<any>();
   public event: Observable<any> = this.recipeSubject.asObservable();
 
-  // usse URL = { ./api/v1/ }
-
   constructor(
     private httpClient: HttpClient,
     private router: Router
