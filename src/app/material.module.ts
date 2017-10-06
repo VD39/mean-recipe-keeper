@@ -13,7 +13,6 @@ import {
   MatDialogModule,
   MatSnackBarModule,
   MatToolbarModule,
-  MdMenuModule,
   MatIconModule,
   MatListModule
 } from '@angular/material';
@@ -21,7 +20,6 @@ import {
 // Material imports for material design
 const MATERIAL_IMPORTS = [
   MatListModule,
-  MdMenuModule,
   MatCardModule,
   MatGridListModule,
   MatButtonModule,
