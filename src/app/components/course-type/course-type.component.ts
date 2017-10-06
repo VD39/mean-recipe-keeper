@@ -18,7 +18,6 @@ import { IResponse, IRecipe } from '../../interfaces';
 export class CourseTypeComponent implements OnInit, OnDestroy {
   private subscription: Subscription; // Subscription
   public loading: boolean = true; // Loading state set to false
-  public noResult: boolean = false; // No result state set to false
   public recipes: IRecipe[]; // Recipes
 
   constructor(
@@ -41,14 +40,13 @@ export class CourseTypeComponent implements OnInit, OnDestroy {
           // Check if status was success and count is greater than 0
           if (data.status === 'success' && data.meta.count > 0) {
             this.recipes = data.data; // Set recipes to data array
-            this.noResult = false; // Set no results to false
           } else {
-            this.noResult = true; // Set no results to true
+            this.recipes = []; // Set empty array
           }
         },
         (error: IResponse | any) => {
           this.loading = false; // Set loading to false
-          this.noResult = true; // Set no results to true
+          this.recipes = []; // Set empty array
         });
       // this.subscription.add(subscription); // Add subscription
     });

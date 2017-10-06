@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup; // Form group
   public errorMessage: string; // Error message
   public processing: boolean = false; // Processing set to false
-  public error: boolean = false; // Error set to false
 
   constructor(
     private router: Router,
@@ -89,7 +88,6 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: IResponse | any) => {
-        this.error = true; // Set error to true
         this.processing = false; // Set processing to false
         this.errorMessage = error.message; // Set the error message
         this.enableForm(); // Enable the form

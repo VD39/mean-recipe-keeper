@@ -14,9 +14,9 @@ export class CourseTypesRoute {
 
   /**
    * Gets all course types.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public getCourseTypes(req: Request, res: Response, next: NextFunction): void | Response {
     CourseType
@@ -35,9 +35,9 @@ export class CourseTypesRoute {
 
   /**
    * Adds a course type.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
+   * @param req {Request} - The express request object.
+   * @param res {Response} - The express response object.
+   * @param next {NextFunction} - The next function to continue.
    */
   public addCourseType(req: Request, res: Response, next: NextFunction): void | Response {
     // Check if there a response type in body

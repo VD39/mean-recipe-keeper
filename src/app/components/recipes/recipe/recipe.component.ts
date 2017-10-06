@@ -20,7 +20,6 @@ export class RecipeComponent implements OnInit, OnDestroy {
   private subscription: Subscription; // Subscription
   public recipe: IRecipe; // Recipe
   public loading: boolean = true; // Loading status set to true
-  public noResult: boolean = false; // Loading status set to false
 
   constructor(
     private router: Router,
@@ -44,14 +43,13 @@ export class RecipeComponent implements OnInit, OnDestroy {
           // Check if status was success and count is greater than 0
           if (data.status === 'success' && data.meta.count > 0) {
             this.recipe = data.data; // Set recipes to data array
-            this.noResult = false; // Set no results to false
           } else {
-            this.noResult = true; // Set no results to true
+            this.recipe = null; // Set recipe to null
           }
         },
         (error: IResponse | any) => {
           this.loading = false; // Set loading to false
-          this.noResult = true; // Set no results to true
+          this.recipe = null; // Set recipe to null
         });
     });
   }
@@ -62,7 +60,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
   /**
    * Converts minutes to hour and minutes.
-   * @param minutes {number} Minutes to convert.
+   * @param minutes {number} - Minutes to convert.
    */
   convertMinsToHrsMins(minutes: number): string {
     let h: any = Math.floor(minutes / 60); // Set hours

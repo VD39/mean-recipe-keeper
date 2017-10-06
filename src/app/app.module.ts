@@ -1,6 +1,6 @@
 // Import dependencies
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -65,12 +65,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PageNotFoundComponent
   ],
   imports: [
-    HttpModule,
     FormsModule,
     RoutesModule,
     BrowserModule,
     MaterialModule,
     FlexLayoutModule,
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),

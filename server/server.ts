@@ -41,8 +41,8 @@ class Server {
 
   /**
    * Creates the index route.
-   * @param req {express.Request} The express request object.
-   * @param res {express.Response} The express response object.
+   * @param req {express.Request} - The express request object.
+   * @param res {express.Response} - The express response object.
    */
   private indexRoute(req: express.Request, res: express.Response): void {
     res.success(200, null, 'Welcome to Recipe API'); // Send success response
